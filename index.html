@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAI-VIDHYA - Premier Commerce Education Institute | Vadodara</title>
+    <meta name="description" content="KAI-VIDHYA (KAI-V) - Leading commerce education institute in Vadodara offering XI & XII Commerce, B.Com, CA/CMA Foundation coaching with expert faculty and proven results.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+    <link rel="icon" type="image/png" href="/resources/logo.png">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a237e',
+                        'gold': '#ffb300',
+                        'soft-blue': '#e3f2fd',
+                        'charcoal': '#37474f'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['Source Code Pro', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.05) 0%, rgba(227, 242, 253, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .typewriter {
+            border-right: 2px solid #ffb300;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: #ffb300; }
+            51%, 100% { border-color: transparent; }
+        }
+        
+        .program-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .program-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 35, 126, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #ffb300 0%, #ffc107 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 179, 0, 0.3);
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .stagger-item.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .navbar.sticky {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-left: 4px solid #ffb300;
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+            border: 1px solid rgba(26, 35, 126, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(26, 35, 126, 0.15);
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .shape:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1a237e 0%, #ffb300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            
+            .program-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e3f2fd; /* soft-blue */
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1a237e, #283593); /* navy gradient */
+    border-radius: 10px;
+    border: 2px solid #e3f2fd;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ffb300, #ffc107); /* gold hover */
+}
+
+.hero-bg {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.05) 0%, rgba(227, 242, 253, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .typewriter {
+            border-right: 2px solid #ffb300;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: #ffb300; }
+            51%, 100% { border-color: transparent; }
+        }
+        
+        .program-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .program-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 35, 126, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #ffb300 0%, #ffc107 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 179, 0, 0.3);
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .stagger-item.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .navbar.sticky {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-left: 4px solid #ffb300;
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+            border: 1px solid rgba(26, 35, 126, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(26, 35, 126, 0.15);
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .shape:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1a237e 0%, #ffb300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            
+            .program-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+        /* Mobile navigation fix */
+        .nav-menu {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .nav-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .scroll-highlight {
+            box-shadow: 0 0 0 6px rgba(255, 179, 0, 0.5);
+            border-radius: 1rem;
+            transition: box-shadow 0.6s ease;
+        }
+.calc-shape {
+    background-image: url('/resources/calculator.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.25;
+}
+
+    </style>
+</head>
+<body class="font-body text-charcoal bg-white">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img 
+                        src="/resources/long_logo.jpg" 
+                        alt="KAI-VIDHYA Logo"
+                        class="h-10 w-auto object-contain"
+                    />
+                </div>
+   
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-navy hover:text-gold transition-colors duration-300 font-medium">Home</a>
+                        <a href="about.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">About Us</a>
+                        <a href="team.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Team</a>
+                        <a href="results.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Results</a>
+                        <a href="gallery.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
+                        <a href="contact.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="hamburger-menu text-navy hover:text-gold focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="nav-link block px-3 py-2 text-navy font-medium">Home</a>
+                <a href="about.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">About Us</a>
+                <a href="team.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Team</a>
+                <a href="results.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Results</a>
+                <a href="gallery.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Gallery</a>
+                <a href="contact.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-bg min-h-screen flex items-center relative">
+        <div id="particle-background" class="particle-container"></div>
+        <div class="floating-shapes">
+            <div class="shape w-16 h-16 bg-gold rounded-full"></div>
+            <div class="shape w-12 h-12 bg-navy transform rotate-45"></div>
+            <div class="shape calc-shape w-20 h-20 rounded-lg"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="hero-content text-center">
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6">
+                    <span class="gradient-text">Knowledge.</span><br>
+                    <span class="gradient-text">Application.</span><br>
+                    <span class="gradient-text">Integration.</span><br>
+                    <span class="text-navy">Vocational Excellence</span>
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-charcoal mb-8 max-w-4xl mx-auto leading-relaxed">
+                    Your Entire Commerce Journey — From Classroom Learning to Professional Growth
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                    <a href="#programs" class="btn-primary text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center">
+                        Explore Programs
+                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="results.html" class="btn-secondary text-navy px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center">
+                        View Results
+                        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </a>
+                </div>
+                
+                <div class="text-sm text-charcoal">
+                    <p>📍 Vadodara's Premier Commerce Education Hub</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founders Section -->
+    <section class="section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Meet Our <span class="text-gold">Visionaries</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                    KAI-VIDHYA is a leading commerce education institute committed to building strong concepts, 
+                    analytical mindset, and real-world readiness.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="stagger-item text-center">
+                    <div class="mb-6">
+                        <img src="resources/swapnil.jpg" alt="Swapnil Shah" 
+                             class="w-48 h-48 rounded-full mx-auto object-cover shadow-2xl">
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-navy mb-2">Swapnil Shah</h3>
+                    <p class="text-gold font-semibold mb-4">Director & Founder</p>
+                    <p class="text-charcoal leading-relaxed">
+                        With over 26+ years of experience in commerce education, Swapnil brings deep expertise 
+                        in conceptual teaching and student mentorship. His vision is to create industry-ready 
+                        commerce professionals.
+                    </p>
+                </div>
+                
+                <div class="stagger-item text-center">
+                    <div class="mb-6">
+                        <img src="resources/pratik.jpg" alt="Pratik Desai" 
+                             class="w-48 h-48 rounded-full mx-auto object-cover shadow-2xl">
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-navy mb-2">Pratik Desai</h3>
+                    <p class="text-gold font-semibold mb-4">Director & Founder</p>
+                    <p class="text-charcoal leading-relaxed">
+                        Pratik specializes in application-based learning and career guidance. His innovative 
+                        teaching methods have helped thousands of students achieve their academic and professional goals.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 stagger-item">
+                <p class="text-lg text-charcoal max-w-4xl mx-auto">
+                    Guided by Swapnil Shah and Pratik Desai, we prepare students for academic success 
+                    and professional excellence in the dynamic world of commerce.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About KAI-VIDHYA Section -->
+    <section class="section py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="stagger-item">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                        <span class="text-gold">Why</span> <span class="text-blue">KAI-VIDHYA?</span>
+                    </h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center">
+                                <img 
+                                  src="/resources/logo.png" 
+                                  alt="Concept Icon"
+                                  class="w-12 h-12 object-contain"
+                                />
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-navy mb-2">Conceptual Clarity</h3>
+                                <p class="text-charcoal">Strong foundation in commerce concepts through systematic teaching methods and practical examples.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center">
+                                <img 
+                                  src="/resources/logo.png" 
+                                  alt="Concept Icon"
+                                  class="w-12 h-12 object-contain"
+                                />
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-navy mb-2">Application-Based Learning</h3>
+                                <p class="text-charcoal">Real-world case studies and practical applications to bridge the gap between theory and practice.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center">
+                                <img 
+                                  src="/resources/logo.png" 
+                                  alt="Concept Icon"
+                                  class="w-12 h-12 object-contain"
+                                />
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-navy mb-2">Career Readiness</h3>
+                                <p class="text-charcoal">Comprehensive preparation for professional examinations and career opportunities in commerce.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Programs We <span class="text-gold">Offer</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                    Comprehensive commerce education programs designed to build strong foundations 
+                    and professional excellence.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="program-card stagger-item bg-white p-8 rounded-2xl shadow-lg flex flex-col">
+                    <h3 class="text-2xl font-display font-bold text-navy mb-4">XI & XII Commerce (CBSE)</h3>
+                    <p class="text-charcoal mb-6">As an educational institute, we can provide concept-based learning with practical exposure, helping CBSE Commerce students understand subjects deeply, not just memorize.
+Along with this, we offer career guidance and skill-oriented training to prepare them for CA, CMA, CS, and future professional success.</p>
+                    <ul class="text-sm text-charcoal space-y-2 mb-6">
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Accountancy</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Economics</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Business Studies</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Mathematics</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> English</li>
+                    </ul>
+                    <button class="mt-auto w-full bg-navy text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </button>
+                </div>
+
+                <div class="program-card stagger-item bg-white p-8 rounded-2xl shadow-lg flex flex-col">
+
+                    
+                    <h3 class="text-2xl font-display font-bold text-navy mb-4">XI & XII Commerce (GSEB)</h3>
+                    <p class="text-charcoal mb-6">For GSEB Commerce students, we provide clear concept-building, exam-oriented preparation, and the best quality study material to make learning simple, strong, and scoring.
+Along with academics, we focus on practical business knowledge and career guidance to shape confident future professionals.</p>
+                    <ul class="text-sm text-charcoal space-y-2 mb-6">
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Accountancy</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Statistics</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Economics</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Organization of Commmerce & Management</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> English</li>
+                        
+                    </ul>
+                    <button class="mt-auto w-full bg-navy text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </button>
+                </div>
+                
+                <div class="program-card stagger-item bg-white p-8 rounded-2xl shadow-lg flex flex-col">
+                    
+                    <h3 class="text-2xl font-display font-bold text-navy mb-4">B.Com Complete Support</h3>
+                    <p class="text-charcoal mb-6">For B.Com students of MSU, we provide strong conceptual teaching, university-focused preparation, and the best quality study material for excellent academic performance.
+Along with academics, we offer practical exposure and career guidance to build confident and industry-ready professionals.</p>
+                    <ul class="text-sm text-charcoal space-y-2 mb-6">
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> All Semesters</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Practical Training</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Project Guidance</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Exam Preparation</li>
+                    </ul>
+                    <button class="mt-auto w-full bg-gold text-navy py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </button>
+                </div>
+
+                <div class="program-card stagger-item bg-white p-8 rounded-2xl shadow-lg flex flex-col">
+                    
+                    <h3 class="text-2xl font-display font-bold text-navy mb-4">CA / CMA Foundation</h3>
+                    <p class="text-charcoal mb-6">For CA & CMA Foundation students, we provide in-depth conceptual teaching, exam-focused preparation, and the best quality study material to ensure strong results.
+Along with academics, we offer practical application, regular testing, and expert career guidance to build future professionals.</p>
+                    <ul class="text-sm text-charcoal space-y-2 mb-6">
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> CA Foundation</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> CMA Foundation</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Expert Faculty</li>
+                        <li class="flex items-center"><span class="text-gold mr-2">✓</span> Success Guarantee</li>
+                    </ul>
+                    <button class="mt-auto w-full bg-navy text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-all">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Carousel Section -->
+    <section class="section py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Our <span class="text-gold">Achievements</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto mb-8">
+                    Celebrating the success of our students who have achieved excellence in their academic journey from 2018 to 2025.
+                </p>
+                <a href="results.html" class="btn-primary text-white px-6 py-3 rounded-lg font-semibold inline-flex items-center">
+                    View All Results
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="results-carousel splide">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <!-- 2023-24 School Toppers -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/lisha.png" alt="Lisha Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Lisha (Urmi)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">A/c-100 | B.S.-89 | Eco.-97</p>
+                                <p class="text-xs text-gray-600 mt-2">"Pratik Desai sir has inspired us to aspire, helping me score 100/100 in Accountancy."</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/richie.png" alt="Richie Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Richie (PARG)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">A/c-96 | B.S.-98 | Eco.-95</p>
+                                <p class="text-xs text-gray-600 mt-2">"Great experience to learn and grow under the guidance of teachers at SSIC (KAI-V)."</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/kush.png" alt="Kush Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Kush (PARG)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">SSIC (KAI-V) Coaching</p>
+                                <p class="text-xs text-gray-600 mt-2">"Unique supportive concepts and clear mentors who helped me excel. I'm truly grateful."</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/falak.png" alt="Falak Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Falak (Ambe)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">Interactive & Innovative Methods</p>
+                                <p class="text-xs text-gray-600 mt-2">"SSIC (KAI-V) has provided great education with interactive and innovative teaching methods."</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/jahnavi.png" alt="Jahnavi Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Jahnavi (Don Bosco)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">Best & Intellectual Teaching</p>
+                                <p class="text-xs text-gray-600 mt-2">"I had the best experience at SSIC (KAI-V). The best and very intellectual way of teaching."</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/dolly.png" alt="Dolly Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Dolly (LFS)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">Dedication & Structured Lessons</p>
+                                <p class="text-xs text-gray-600 mt-2">"Swapnil Sir's dedication, discipline, and structured lessons have profoundly enhanced my learning."</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/harshit.png" alt="Harshit Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Harshit (PARG)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">Temple of Wisdom</p>
+                                <p class="text-xs text-gray-600 mt-2">"SSIC (KAI-V) was more than a learning platform; it's the temple of wisdom that shaped my foundation."</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/varuna.png" alt="Varuna Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Varuna (Atmiya Vidyalay)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce GSEB - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">Lasting Impact & Motivation</p>
+                                <p class="text-xs text-gray-600 mt-2">"The guidance and motivation I've received have made a lasting impact. More than just a center for learning."</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/harsh90.png" alt="Harsh Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Harsh (Ambe School)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2023-24</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">Transformative Journey</p>
+                                <p class="text-xs text-gray-600 mt-2">"SSIC (KAI-V) coaching has been a transformative journey, providing expert guidance and inspiring growth."</p>
+                            </div>
+                        </li>
+                        
+                        <!-- 2024-25 CBSE Toppers -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/harshitram2024-25.png" alt="Harshitram Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Harshitram</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">94.2%</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Eco 99 | BS 98</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - CBSE Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/divya2024-25.png" alt="Divya Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Divya</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">94.2%</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Eco 99 | BS 98</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - CBSE Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/kush2024-25.png" alt="Kush Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Kush</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">93.8%</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Eco 99 | BS 98</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - CBSE Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/harsh2024-25.png" alt="Harsh Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Harsh</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">93.4%</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Eco 99 | BS 98</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - CBSE Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/rudra2024-25.png" alt="Rudra Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Rudra</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">92.2%</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Eco 99 | BS 98</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - CBSE Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/rohit2024-25.png" alt="Rohit Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Rohit</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">88.8%</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Eco 99 | BS 98</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - CBSE Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/krishna2024-25.png" alt="Krishna Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Krishna</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">88.8%</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Eco 99 | BS 98</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - CBSE Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/sakshi2024-25.png" alt="Sakshi Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Sakshi</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce CBSE - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">88.8%</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Eco 99 | BS 98</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - CBSE Board</p>
+                            </div>
+                        </li>
+                        
+                        <!-- 2024-25 GSEB Toppers -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/pushya2024-25.png" alt="Pushya Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Pushya</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce GSEB - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">96.61% PR</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Stats 99 | Eco 97 | O.C. 97</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - GSEB Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/kripa2024-25.png" alt="Kripa Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Kripa</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce GSEB - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">95.74% PR</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Stats 99 | Eco 97 | O.C. 97</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - GSEB Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/azla2024-25.png" alt="Azla Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Azla</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce GSEB - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">95.05% PR</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Stats 99 | Eco 97 | O.C. 97</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - GSEB Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/gurkirat2024-25.png" alt="Gurkirat Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Gurkirat</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce GSEB - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">94.90% PR</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Stats 99 | Eco 97 | O.C. 97</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - GSEB Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/priyal2024-25.png" alt="Priyal Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Priyal</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce GSEB - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">94.31% PR</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Stats 99 | Eco 97 | O.C. 97</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - GSEB Board</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/aryan2024-25.png" alt="Aryan Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Aryan</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce GSEB - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">92.01% PR</div>
+                                <p class="text-sm text-charcoal">Max: A/c 99 | Stats 99 | Eco 97 | O.C. 97</p>
+                                <p class="text-xs text-gray-600 mt-2">School Topper - GSEB Board</p>
+                            </div>
+                        </li>
+                        
+                        <!-- Students Scoring 100/100 -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/logo.png" alt="Heti Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Click 'View All Results' to see details </h3>
+                                        <p class="text-sm text-charcoal"> Commerce - Multiple Years</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">100/100</div>
+                                <p class="text-sm text-charcoal">O Grade in Core Subjects</p>
+                                <p class="text-xs text-gray-600 mt-2">Perfect Score Achievers</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/logo.png" alt="Krupa Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Click 'View All Results' to see details </h3>
+                                        <p class="text-sm text-charcoal">Commerce - Multiple Years</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">100/100</div>
+                                <p class="text-sm text-charcoal">O Grade in Core Subjects</p>
+                                <p class="text-xs text-gray-600 mt-2">Perfect Score Achievers</p>
+                            </div>
+                        </li>
+                        
+                        
+                        <!-- Historical Toppers 2018-2022 -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/shailja.png" alt="Shailja Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Shailja (Ambe)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce - 2018-19</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Subject Topper</div>
+                                <p class="text-sm text-charcoal">A/c 99 | Stat 98 | Eco 96 | OCM 98</p>
+                                <p class="text-xs text-gray-600 mt-2">First Rank Holder - Shreeji Swapn</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/mohit.png" alt="Mohit Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Mohit (Solver Oak)</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce - 2018-19</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Subject Topper</div>
+                                <p class="text-sm text-charcoal">A/c 98 | Stat 99 | Eco 97 | OCM 95</p>
+                                <p class="text-xs text-gray-600 mt-2">First Rank Holder - Shreeji Swapn</p>
+                            </div>
+                        </li>
+                        
+                        <!-- MSU B.Com Toppers -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/hetanshiB-com.png" alt="Hetanshi Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Hetanshi</h3>
+                                        <p class="text-sm text-charcoal">B.Com - MSU - 2019-20</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">82%</div>
+                                <p class="text-sm text-charcoal">Statistics: 10/10 (Perfect Score)</p>
+                                <p class="text-xs text-gray-600 mt-2">MSU B.Com Topper</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/sakshiB-com.png" alt="Sakshi Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Sakshi</h3>
+                                        <p class="text-sm text-charcoal">B.Com - MSU - 2019-20</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">87%</div>
+                                <p class="text-sm text-charcoal">Statistics: 10/10 (Perfect Score)</p>
+                                <p class="text-xs text-gray-600 mt-2">MSU B.Com Topper</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/krishnaB-com.png" alt="Krishna Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Krishna</h3>
+                                        <p class="text-sm text-charcoal">B.Com - MSU - 2019-20</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">77%</div>
+                                <p class="text-sm text-charcoal">Accountancy: 10/10 (Perfect Score)</p>
+                                <p class="text-xs text-gray-600 mt-2">MSU B.Com Topper</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/logo.png" alt="Multiple Toppers" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Vaishali, Lovely, Hiral</h3>
+                                        <p class="text-sm text-charcoal">B.Com - MSU - 2019-20</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">78-79%</div>
+                                <p class="text-sm text-charcoal">MSU B.Com Toppers</p>
+                                <p class="text-xs text-gray-600 mt-2">Consistent Excellence in B.Com</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/shairiB-com.png" alt="Shairi Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Shairi</h3>
+                                        <p class="text-sm text-charcoal">B.Com - MSU - 2019-20</p>
+                                    </div>
+                                </div>
+                                <div class="text-3xl font-bold text-gold mb-2">87%</div>
+                                <p class="text-sm text-charcoal">MSU B.Com Topper</p>
+                                <p class="text-xs text-gray-600 mt-2">Excellence in Commerce Education</p>
+                            </div>
+                        </li>
+                        
+                        <!-- CA Foundation Achievers -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/ca/ca-result-1.png" alt="CA Foundation Achiever" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Harsh Sarvaiya</h3>
+                                        <p class="text-sm text-charcoal">CA Foundation - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">All India Rank: 11</div>
+                                <p class="text-sm text-charcoal">Vadodara Rank: 1</p>
+                                <p class="text-xs text-gray-600 mt-2">National Level Achievement</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/ca/ca-result-2.png" alt="CA Foundation Achiever" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Kanzariya Harsh</h3>
+                                        <p class="text-sm text-charcoal">CA Foundation - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Vadodara Rank: 2</div>
+                                <p class="text-sm text-charcoal">City Level Excellence</p>
+                                <p class="text-xs text-gray-600 mt-2">Professional Course Success</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/ca/ca-result-3.png" alt="CA Foundation Achiever" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Rudra Patel</h3>
+                                        <p class="text-sm text-charcoal">CA Foundation - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Successful Candidate</div>
+                                <p class="text-sm text-charcoal">Total: 279/400</p>
+                                <p class="text-xs text-gray-600 mt-2">Professional Excellence</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/ca/ca-result-4.png" alt="CA Foundation Achiever" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Rohit Sharma</h3>
+                                        <p class="text-sm text-charcoal">CA Foundation - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Successful Candidate</div>
+                                <p class="text-sm text-charcoal">Total: 251/400</p>
+                                <p class="text-xs text-gray-600 mt-2">Professional Excellence</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/ca/ca-result-5.png" alt="CA Foundation Achiever" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Divya</h3>
+                                        <p class="text-sm text-charcoal">CA Foundation - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Successful Candidate</div>
+                                <p class="text-sm text-charcoal">Total: 249/400</p>
+                                <p class="text-xs text-gray-600 mt-2">Professional Excellence</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/ca/ca-result-6.png" alt="CA Foundation Achiever" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Harshitram Iyer</h3>
+                                        <p class="text-sm text-charcoal">CA Foundation - 2024-25</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Successful Candidate</div>
+                                <p class="text-sm text-charcoal">Total: 243/400</p>
+                                <p class="text-xs text-gray-600 mt-2">Professional Excellence</p>
+                            </div>
+                        </li>
+                        
+                        <!-- 2019-20 School Toppers -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/krina2019-20.png" alt="Krina Achievement" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Krina</h3>
+                                        <p class="text-sm text-charcoal">XII Commerce - Silver Oak - 2019-20</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Topper</div>
+                                <p class="text-sm text-charcoal">Excellence in Commerce</p>
+                                <p class="text-xs text-gray-600 mt-2">Shreeji Swapn Institute</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/logo.png" alt="Multiple Toppers" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Yash, Kashish, Dhairya</h3>
+                                        <p class="text-sm text-charcoal">Multiple Schools - 2019-20</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">School Toppers</div>
+                                <p class="text-sm text-charcoal">Silver Oak, GPS, Stela Marry</p>
+                                <p class="text-xs text-gray-600 mt-2">Multi-School Excellence</p>
+                            </div>
+                        </li>
+                        
+                        <!-- Alumni Success -->
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/mohit-ca.png" alt="CA Mohit Panchal" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">CA Mohit Panchal</h3>
+                                        <p class="text-sm text-charcoal">Chartered Accountant</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Alumni Success</div>
+                                <p class="text-sm text-charcoal">SSIC Foundation Success Story</p>
+                                <p class="text-xs text-gray-600 mt-2">"Foundation laid at SSIC was integral to my success"</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/maitry-cma.png" alt="CMA Maitry Tailor" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">CMA Maitry Tailor</h3>
+                                        <p class="text-sm text-charcoal">Cost & Management Accountant</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Alumni Success</div>
+                                <p class="text-sm text-charcoal">SSIC Foundation Success Story</p>
+                                <p class="text-xs text-gray-600 mt-2">"SSIC has been the foundation of my success story"</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/reshma-cs.png" alt="CS Reshma" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">CS Reshma</h3>
+                                        <p class="text-sm text-charcoal">Company Secretary</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Alumni Success</div>
+                                <p class="text-sm text-charcoal">SSIC Foundation Success Story</p>
+                                <p class="text-xs text-gray-600 mt-2">"Life lessons SSIC gave me - Proud to be an SSICian!"</p>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="result-card p-6 rounded-xl">
+                                <div class="flex items-center mb-4">
+                                    <img src="/resources/naveen-sbi.png" alt="Naveen Kathuria" 
+                                         class="w-16 h-16 rounded-full object-cover mr-4">
+                                    <div>
+                                        <h3 class="font-bold text-navy">Naveen Kathuria</h3>
+                                        <p class="text-sm text-charcoal">Manager - SBI</p>
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold text-gold mb-2">Alumni Success</div>
+                                <p class="text-sm text-charcoal">SSIC Foundation Success Story</p>
+                                <p class="text-xs text-gray-600 mt-2">"Laid the strong foundation of my career"</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    What Our <span class="text-gold">Students Say</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                    Hear from our alumni about their transformative learning experience at KAI-VIDHYA.
+                </p>
+            </div>
+            
+            <div class="testimonials-carousel splide">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "SSIC (KAI-V) has provided great education to me. The teaching methods are innovative and interactive making complex concepts easy to understand."
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">Falak (Ambe)</h4>
+                                        <p class="text-sm text-charcoal">XII Commerce Student</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "SSIC (KAI-V) was more than just a learning platform, it is the temple of wisdom that shaped my academic foundation and ignited my confidence"
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">Harshit (PARG)</h4>
+                                        <p class="text-sm text-charcoal">XII Commerce Student</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "I had the best experience at SSIC (KAI-V). They have best and very intellectual way of teaching. This is the best institute for commerce education."
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">Jahnavi (Don Bosco)</h4>
+                                        <p class="text-sm text-charcoal">XII Commerce Student</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "The guidance and motivation I've received from my teachers have made a lasting impact on me. This place has been more than just a center for learning."
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">Varuna (Atmiya Vidyalay)</h4>
+                                        <p class="text-sm text-charcoal">XII Commerce Student</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "At SSIC (KAI-V) Swapnil Sir's dedication, teaching, discipline and structured lessons have profoundly enhanced my learning."                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">Dolly (LFS)</h4>
+                                        <p class="text-sm text-charcoal">XII Commerce Student</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "SSIC (KAI-V) coaching has been a transformation journey, providing expert guidance and inspiring growth."
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">Harsh (Ambe School)</h4>
+                                        <p class="text-sm text-charcoal">XII Commerce Student</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "My experience with Swapnil Sir's Shreeji Swapn Institute of Commerce (SSIC) has been truly memorable and enriching. The faculties provide in-depth conceptual clarity, and during exams Swapnil Sir was always available 24x7 for guidance. SSIC truly lives up to its motto — where winning is a habit and success an outcome. As a Chartered Accountant today, I proudly say the foundation laid at SSIC was integral to my success. PROUD TO BE A PART OF SSIC"
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">CA Mohit Panchal</h4>
+                                        <p class="text-sm text-charcoal">Chartered Accountant</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "SSIC has been the strongest pillar of my academic success. The systematic class tests ensured timely revision and improved my writing speed, while the comprehensive study material made even complex topics easy to understand. Unlike many institutes, SSIC focuses on the progress of every student, not just the toppers. The faculties teach from the heart and guide with genuine care. As a CMA today, I can confidently say SSIC has been the foundation of my success story"
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">CMA Maitry Tailor</h4>
+                                        <p class="text-sm text-charcoal">Cost & Management Accountant</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "SSIC has been a turning point in my journey. Beyond academics, the institute helped me build confidence, communication, and presentation skills — qualities that matter in every professional's career. The motivating environment, continuous mentoring, and real exam-like practice through mocks kept me focused and stress-free. Today, as a Company Secretary, I value not just the knowledge but also the life lessons SSIC gave me. Truly proud to be an SSICian!"
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">CS Reshma</h4>
+                                        <p class="text-sm text-charcoal">Company Secretary</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="testimonial-card p-8 rounded-2xl shadow-lg mx-4">
+                                <div class="mb-6">
+                                    <svg class="w-12 h-12 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                    </svg>
+                                </div>
+                                <p class="text-lg text-charcoal mb-6 italic">
+                                    "SSIC has been more than an institute for me — it's where my journey truly began. The guidance, care, and encouragement I received here gave me the confidence to dream big and achieve them. With the support of SSIC, I secured 1st rank in B.Com, which became a turning point in my academic journey. Today, as an SBI Manager, I feel grateful to SSIC for laying the strong foundation of my career and shaping me into who I am"
+                                </p>
+                                <div class="flex items-center">
+                                    <div>
+                                        <h4 class="font-bold text-navy">Naveen Kathuria</h4>
+                                        <p class="text-sm text-charcoal">Manager - State Bank of India</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER – NEW -->
+<footer class="bg-navy text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+
+      <!-- Col-1 : Brand -->
+      <div class="md:col-span-2">
+        <div class="text-3xl font-display font-bold mb-4">
+          KAI-<span class="text-gold">VIDHYA</span>
+        </div>
+        <p class="text-gray-300 mb-6 max-w-md">
+          An ocean of knowledge where conceptual strength becomes professional success.
+          Celebrating every achievement, nurturing every talent.
+        </p>
+        <div class="flex space-x-4">
+          <a href="https://instagram.com/kai__vidhya" target="_blank" aria-label="Instagram" class="text-gold hover:text-white transition-colors">
+            <!-- Instagram glyph -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+              <path d="M16 11.37a4 4 0 11-7.92 0 4 4 0 017.92 0zM17.5 6.5" stroke-width="2"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Col-2 : Quick Links -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="about.html" class="text-gray-300 hover:text-gold transition-colors">About Us</a></li>
+          <li><a href="team.html" class="text-gray-300 hover:text-gold transition-colors">Our Team</a></li>
+          <li><a href="results.html" class="text-gray-300 hover:text-gold transition-colors">Results</a></li>
+          <li><a href="gallery.html" class="text-gray-300 hover:text-gold transition-colors">Gallery</a></li>
+          <li><a href="contact.html" class="text-gray-300 hover:text-gold transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Col-3 : Centres -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Our Centres</h3>
+        <ul class="space-y-2 text-sm text-gray-300">
+          <li>📍 Manjalpur – F-134, Sahjanand Flats, Opp. Saraswati Complex, Vadodara 390011</li>
+          <li>📍 Dabhoi Road – Das Plaza, Vrundavan Cross Rd., Vadodara 390019</li>
+        </ul>
+      </div>
+
+      <!-- Col-4 : Contact -->
+      <div>
+  <h3 class="text-lg font-semibold mb-4">Get in Touch</h3>
+
+  <ul class="space-y-2 text-sm text-gray-300">
+
+    <!-- Phone -->
+    <li>
+      <a href="tel:+919537337337"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>📞</span>
+        +91 9537 337 337
+      </a>
+    </li>
+
+    <!-- Email -->
+    <li>
+      <a href="mailto:info@kaividhya.com"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>✉️</span>
+        info@kaividhya.com
+      </a>
+    </li>
+
+    <!-- Instagram -->
+    <li>
+      <a href="https://instagram.com/kai__vidhya"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>📸</span>
+        @kai__vidhya
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+    </div>
+
+    <!-- Bottom line -->
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400 text-sm">
+      Winning is a habit & success an outcome. | © KAI-VIDHYA. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+</body>
+</html>

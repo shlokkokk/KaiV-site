@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - KAI-VIDHYA | Expert Faculty & Leadership</title>
+    <meta name="description" content="Meet the expert faculty and leadership team at KAI-VIDHYA. Learn about our directors, qualified teachers, and their commitment to commerce education excellence.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+    <link rel="icon" type="image/png" href="/resources/logo.png">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a237e',
+                        'gold': '#ffb300',
+                        'soft-blue': '#e3f2fd',
+                        'charcoal': '#37474f'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['Source Code Pro', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e3f2fd; /* soft-blue */
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1a237e, #283593); /* navy gradient */
+    border-radius: 10px;
+    border: 2px solid #e3f2fd;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ffb300, #ffc107); /* gold hover */
+}
+        /* Custom Styles */
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.05) 0%, rgba(227, 242, 253, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .stagger-item.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .navbar.sticky {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .expandable-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .expandable-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .expandable-card.expanded {
+            box-shadow: 0 25px 50px rgba(26, 35, 126, 0.2);
+        }
+        
+        .expand-btn {
+            background: linear-gradient(135deg, #ffb300 0%, #ffc107 100%);
+            color: #1a237e;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .expand-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 179, 0, 0.3);
+        }
+        
+        .expanded-content {
+    display: none;
+    overflow: hidden;
+}
+
+.expandable-card.expanded .expanded-content {
+    display: block;
+}
+
+        
+        .faculty-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .faculty-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(26, 35, 126, 0.15);
+        }
+        
+        .faculty-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1a237e, #ffb300);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .faculty-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid #e3f2fd;
+            color: #1a237e;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #1a237e;
+            border-color: #1a237e;
+            color: white;
+        }
+        
+        .faculty-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .faculty-item {
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.3s ease;
+        }
+        
+        .faculty-item.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+        
+        .quote-section {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quote-section::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 200px;
+            color: rgba(255, 179, 0, 0.1);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1a237e 0%, #ffb300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .shape:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .faculty-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .expandable-card {
+                margin-bottom: 1.5rem;
+            }
+        }
+        .nav-menu {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .nav-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="font-body text-charcoal bg-white">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="text-2xl font-display font-bold text-navy">
+                        KAI-<span class="text-gold">VIDHYA</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Home</a>
+                        <a href="about.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">About Us</a>
+                        <a href="team.html" class="nav-link text-navy hover:text-gold transition-colors duration-300 font-medium">Team</a>
+                        <a href="results.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Results</a>
+                        <a href="gallery.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
+                        <a href="contact.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="hamburger-menu text-navy hover:text-gold focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Home</a>
+                <a href="about.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">About Us</a>
+                <a href="team.html" class="nav-link block px-3 py-2 text-navy font-medium">Team</a>
+                <a href="results.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Results</a>
+                <a href="gallery.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Gallery</a>
+                <a href="contact.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg pt-24 pb-16 relative">
+        <div class="floating-shapes">
+            <div class="shape w-16 h-16 bg-gold rounded-full"></div>
+            <div class="shape w-12 h-12 bg-navy transform rotate-45"></div>
+            <div class="shape w-20 h-20 bg-soft-blue rounded-lg"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+                Meet Our <span class="gradient-text">Expert Team</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-charcoal max-w-4xl mx-auto leading-relaxed">
+                Dedicated educators and industry professionals committed to transforming 
+                commerce education through expertise, innovation, and student-centric learning.
+            </p>
+        </div>
+    </section>
+
+    <!-- Directors Section -->
+    <section class="section py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Our <span class="text-gold">Leadership</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                    Visionary leaders who have shaped the future of commerce education in Vadodara 
+                    through their passion, expertise, and commitment to student success.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Swapnil Shah -->
+                <div class="expandable-card stagger-item">
+                    <div class="p-8">
+                        <div class="text-center mb-6">
+                            <img src="resources/swapnil.jpg" alt="Swapnil Shah" 
+                                 class="w-32 h-32 rounded-full mx-auto object-cover shadow-lg mb-4">
+                            <h3 class="text-2xl font-display font-bold text-navy">Swapnil Shah</h3>
+                            <p class="text-gold font-semibold">Director & Founder</p>
+                        </div>
+                        
+                        <div class="text-center mb-6">
+                            <p class="text-charcoal leading-relaxed">
+                                Founder of SSIC and a seasoned commerce educator with over <strong>25 years of teaching experience</strong>,
+    specializing in Accounting, Cost Accounting, Finance, Management Accounting, and Taxation.
+                            </p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button class="expand-btn">Read More</button>
+                        </div>
+                    </div>
+                    
+                    <div class="expanded-content px-8 pb-8">
+                        <div class="border-t border-gray-200 pt-6">
+                            <h4 class="text-lg font-semibold text-navy mb-4">Education & Expertise</h4>
+                            <ul class="text-charcoal space-y-2 mb-6">
+                                <li>• Specialization in Accounting, Cost Accounting, and Taxation</li>
+                                <li>• Expertise in Finance and Management Accounting</li>
+                                <li>• Extensive teaching experience across HSC, B.Com., CA, and CS</li>
+                            </ul>
+                            
+                            <h4 class="text-lg font-semibold text-navy mb-4">Professional Experience</h4>
+                            <ul class="text-charcoal space-y-2 mb-6">
+                                <li>• Founder of SSIC (Shreeji Swapn Institute of Commerce)</li>
+    <li>• Over 25 years of experience in commerce education</li>
+    <li>• Mentor to more than 7,000 students</li>
+    <li>• Builder of a faculty team comprising CAs, CMAs, and PhDs</li>
+                            </ul>
+                            
+                            <h4 class="text-lg font-semibold text-navy mb-4">Leadership & Vision</h4>
+                            <p class="text-charcoal leading-relaxed">
+                                Swapnil Shah is a passionate educational entrepreneur whose journey reflects a deep
+                                commitment to quality education, disciplined learning, and student success.
+                                His leadership has created a rigorous yet supportive academic environment where
+                                students excel academically while gaining practical, real-world insights.
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pratik Desai -->
+                <div class="expandable-card stagger-item">
+                    <div class="p-8">
+                        <div class="text-center mb-6">
+                            <img src="resources/pratik.jpg" alt="Pratik Desai" 
+                                 class="w-32 h-32 rounded-full mx-auto object-cover shadow-lg mb-4">
+                            <h3 class="text-2xl font-display font-bold text-navy">Pratik Desai</h3>
+                            <p class="text-gold font-semibold">Director & Founder</p>
+                        </div>
+                        
+                        <div class="text-center mb-6">
+                            <p class="text-charcoal leading-relaxed">
+                                A seasoned educator with over <strong>20 years of experience</strong> specializing in
+    Accountancy, Finance, and Business Studies, known for academic leadership and
+    application-driven teaching.
+                            </p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button class="expand-btn">Read More</button>
+                        </div>
+                    </div>
+                    
+                    <div class="expanded-content px-8 pb-8">
+                        <div class="border-t border-gray-200 pt-6">
+                            <h4 class="text-lg font-semibold text-navy mb-4">Education & Qualifications</h4>
+                            <ul class="text-charcoal space-y-2 mb-6">
+                                <li>• Post Graduate Degree in Accountancy, Auditing & Financial Management</li>
+    <li>• Diploma in Taxation (4th Rank – M.S. University, Vadodara)</li>
+    <li>• Strong academic foundation in financial and management disciplines</li>
+                            </ul>
+                            
+                            <h4 class="text-lg font-semibold text-navy mb-4">Professional Experience</h4>
+                            <ul class="text-charcoal space-y-2 mb-6">
+                                <li>• 20+ years of experience in higher secondary and commerce education</li>
+    <li>• Post Graduate Teacher (PGT) and Higher Secondary Coordinator</li>
+    <li>• Head of Examination Department</li>
+    <li>• Key roles at Urmi School & Hostel, Vatsalya International School, and Shreyas Vidyalaya</li>
+                            </ul>
+                            
+                            <h4 class="text-lg font-semibold text-navy mb-4">Academic Contributions & Recognition</h4>
+                            <p class="text-charcoal leading-relaxed">
+                                Pratik Desai has played a significant role in curriculum development, academic planning,
+    and examination management. His dedication to educational excellence has been
+    recognized with appreciation certificates from the Ministry of Education for two
+    consecutive years for excellence in Accountancy education.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Faculty Section --> 
+ <!-- Faculty Section -->
+    <section class="section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Our <span class="text-gold">Expert Faculty</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto mb-8">
+                    A team of dedicated educators with diverse expertise in commerce, 
+                    accounting, economics, and business studies.
+                </p>
+                
+                <!-- Filter Buttons -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button class="filter-btn active" data-filter="all">All Faculty</button>
+                    <button class="filter-btn" data-filter="core">Core Faculty</button>
+                    <button class="filter-btn" data-filter="visiting">Visiting Faculty</button>
+                    <button class="filter-btn" data-filter="admin">Administration</button>
+                </div>
+            </div>
+            
+            <div class="faculty-grid">
+
+    <!-- CORE FACULTY -->
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/sweta-shah.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Sweta Shah</h3>
+                <p class="text-gold font-semibold text-sm">C.A. Inter, M.Com.<br>Dip. in Taxation Practice</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/Deepa-mane.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Deepa Mane</h3>
+                <p class="text-gold font-semibold text-sm">M.Sc. (Applied Mathematics), B.Ed.</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/pooja-maroo.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Pooja Maroo</h3>
+                <p class="text-gold font-semibold text-sm">PGDCABM, JCP</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/lovely.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Lovely Kandpal</h3>
+                <p class="text-gold font-semibold text-sm">M.Com.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/chandni-lalwani.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Chandni Lalwani</h3>
+                <p class="text-gold font-semibold text-sm">M.Com. (BADM, ABST)<br>M.A., B.Ed. (Economics)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/maitry-acharya.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Maitry Acharya</h3>
+                <p class="text-gold font-semibold text-sm">M.A. (English Literature)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/vinod-padaria.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Dr. Vinod K. Padaria</h3>
+                <p class="text-gold font-semibold text-sm">M.A., Ph.D. (Economics)<br>M.Com. (Business Economics)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/Ronak-shah.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Ronak Shah</h3>
+                <p class="text-gold font-semibold text-sm">M.Sc. (Maths), B.Ed.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/sonali.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Sonali Nandedkar</h3>
+                <p class="text-gold font-semibold text-sm">MBA (HR), M.Com.<br>PGD HRD, B.Ed. (Gold Medal)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="visiting">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/Harnish-Mahera.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Harnish Mahera</h3>
+                <p class="text-gold font-semibold text-sm">M.Com., B.Ed., M.Phil.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="core">
+        <div class="p-6">
+            <div class="text-center mb-4">
+                <img src="resources/piyush-rohit.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+                <h3 class="text-xl font-display font-bold text-navy">Piyush Rohit</h3>
+                <p class="text-gold font-semibold text-sm">MCA, B.Ed.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- VISITING FACULTY -->
+
+    <div class="faculty-card filterable-item stagger-item" data-category="visiting">
+        <div class="p-6 text-center">
+            <img src="resources/brijesh.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+            <h3 class="text-xl font-display font-bold text-navy">CA Brijesh Gandhi</h3>
+            <p class="text-gold font-semibold text-sm">Expert Visiting Faculty</p>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="visiting">
+        <div class="p-6 text-center">
+            <img src="resources/Kashyap-Modi.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+            <h3 class="text-xl font-display font-bold text-navy">CA Kashyap Modi</h3>
+            <p class="text-gold font-semibold text-sm">Expert Visiting Faculty</p>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="visiting">
+        <div class="p-6 text-center">
+            <img src="resources/Tridal-Upadhyay.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+            <h3 class="text-xl font-display font-bold text-navy">Tridal Upadhyay</h3>
+            <p class="text-gold font-semibold text-sm">MBA (Gold Medalist – IIM), IMS</p>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="visiting">
+        <div class="p-6 text-center">
+            <img src="resources/parth-shah.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+            <h3 class="text-xl font-display font-bold text-navy">CA Parth Shah</h3>
+            <p class="text-gold font-semibold text-sm">Expert Visiting Faculty</p>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="visiting">
+        <div class="p-6 text-center">
+            <img src="resources/Bijal-shah.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+            <h3 class="text-xl font-display font-bold text-navy">Bijal Shah</h3>
+            <p class="text-gold font-semibold text-sm">B.Com. (Hons.), TTC</p>
+        </div>
+    </div>
+
+    <!-- ADMIN -->
+
+    <div class="faculty-card filterable-item stagger-item" data-category="admin">
+        <div class="p-6 text-center">
+            <img src="resources/mittal-darji.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+            <h3 class="text-xl font-display font-bold text-navy">Mittal Darji</h3>
+            <p class="text-gold font-semibold text-sm">Admin</p>
+        </div>
+    </div>
+
+    <div class="faculty-card filterable-item stagger-item" data-category="admin">
+        <div class="p-6 text-center">
+            <img src="resources/hetavi-sanghvi.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
+            <h3 class="text-xl font-display font-bold text-navy">Hetavi Sanghvi</h3>
+            <p class="text-gold font-semibold text-sm">Admin</p>
+        </div>
+    </div>
+
+</div>
+
+        </div>
+    </section>
+
+
+    <!-- Inspirational Quote Section -->
+    <section class="quote-section py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="relative z-10">
+                <blockquote class="text-3xl md:text-4xl font-display font-bold mb-8 leading-relaxed">
+                    "The only true teacher is he, who can come down to the 
+level of the student, and transfer his soul to the 
+student’s soul and see through the student’s eyes and 
+hear through his ears and understand through his mind."
+                </blockquote>
+                <cite class="text-xl text-gold font-semibold">— Swami Vivekananda</cite>
+                
+                <div class="mt-12 grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gold font-mono mb-2">50+</div>
+                        <div class="text-sm text-gray-300">Years Combined Experience</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gold font-mono mb-2">11000+</div>
+                        <div class="text-sm text-gray-300">Students Mentored</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-gold font-mono mb-2">99%</div>
+                        <div class="text-sm text-gray-300">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer – NEW (for team.html) -->
+<footer class="bg-navy text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+
+      <!-- Brand -->
+      <div class="md:col-span-2">
+        <div class="text-3xl font-display font-bold mb-4">KAI-<span class="text-gold">VIDHYA</span></div>
+        <p class="text-gray-300 mb-6 max-w-md">
+          An ocean of knowledge where conceptual strength becomes professional success.
+          Celebrating every achievement, nurturing every talent.
+        </p>
+        <div class="flex space-x-4">
+          <a href="https://instagram.com/kai__vidhya" target="_blank" aria-label="Instagram" class="text-gold hover:text-white transition-colors">
+            <!-- Instagram glyph -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+              <path d="M16 11.37a4 4 0 11-7.92 0 4 4 0 017.92 0zM17.5 6.5" stroke-width="2"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="index.html" class="text-gray-300 hover:text-gold transition-colors">Home</a></li>
+          <li><a href="about.html" class="text-gray-300 hover:text-gold transition-colors">About Us</a></li>
+          <li><a href="results.html" class="text-gray-300 hover:text-gold transition-colors">Results</a></li>
+          <li><a href="gallery.html" class="text-gray-300 hover:text-gold transition-colors">Gallery</a></li>
+          <li><a href="contact.html" class="text-gray-300 hover:text-gold transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Centres -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Our Centres</h3>
+        <ul class="space-y-2 text-sm text-gray-300">
+          <li>📍 Manjalpur – F-134, Sahjanand Flats, Opp. Saraswati Complex, Vadodara 390011</li>
+          <li>📍 Dabhoi Road – Das Plaza, Vrundavan Cross Rd., Vadodara 390019</li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+  <h3 class="text-lg font-semibold mb-4">Get in Touch</h3>
+
+  <ul class="space-y-2 text-sm text-gray-300">
+
+    <!-- Phone -->
+    <li>
+      <a href="tel:+919537337337"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>📞</span>
+        +91 9537 337 337
+      </a>
+    </li>
+
+    <!-- Email -->
+    <li>
+      <a href="mailto:info@kaividhya.com"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>✉️</span>
+        info@kaividhya.com
+      </a>
+    </li>
+
+    <!-- Instagram -->
+    <li>
+      <a href="https://instagram.com/kai__vidhya"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>📸</span>
+        @kai__vidhya
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+    </div>
+
+    <!-- Bottom line -->
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400 text-sm">
+      Winning is a habit & success an outcome. | © KAI-VIDHYA. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+</body>
+</html>

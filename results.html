@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - KAI-VIDHYA | Academic Excellence & Achievements</title>
+    <meta name="description" content="Explore KAI-VIDHYA's outstanding academic results, student achievements, rank holders, and success stories in CBSE, GSEB, B.Com, and CA/CMA examinations.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+    <link rel="icon" type="image/png" href="/resources/logo.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a237e',
+                        'gold': '#ffb300',
+                        'soft-blue': '#e3f2fd',
+                        'charcoal': '#37474f'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['Source Code Pro', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #e3f2fd;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #1a237e, #283593);
+            border-radius: 10px;
+            border: 2px solid #e3f2fd;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #ffb300, #ffc107);
+        }
+        
+        /* Custom Styles */
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.05) 0%, rgba(227, 242, 253, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stagger-item {
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .section.animate-in .stagger-item {
+            transform: translateY(0);
+        }
+        
+        .navbar.sticky {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .counter-box {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .counter-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(26, 35, 126, 0.15);
+            border-color: #ffb300;
+        }
+        
+        .counter-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Source Code Pro', monospace;
+            color: #1a237e;
+            line-height: 1;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(26, 35, 126, 0.1);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(26, 35, 126, 0.15);
+            border-color: #ffb300;
+        }
+        
+        .result-card .achievement-badge {
+            background: linear-gradient(135deg, #ffb300 0%, #ffc107 100%);
+            color: #1a237e;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+        
+        .ranker-card {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .ranker-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(26, 35, 126, 0.3);
+        }
+        
+        .ranker-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: #ffb300;
+            border-radius: 0 0 0 60px;
+        }
+        
+        .ranker-card::after {
+            content: '1';
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            color: #1a237e;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid #e3f2fd;
+            color: #1a237e;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #1a237e;
+            border-color: #1a237e;
+            color: white;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 2rem 0;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1a237e 0%, #ffb300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .shape:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .shape:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .counter-number {
+                font-size: 2rem;
+            }
+            
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Rising Stars Photo Upload Area */
+        .photo-upload-area {
+            border: 4px dashed #1a237e;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-upload-area:hover {
+            border-color: #ffb300;
+            background: linear-gradient(135deg, #fff8e1 0%, #f5f5f5 100%);
+        }
+
+        /* Year-wise result sections */
+        .year-section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .year-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .year-subtitle {
+            font-size: 1.25rem;
+            color: #37474f;
+            margin-bottom: 2rem;
+        }
+
+        /* Fix for layout issues */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .section-block {
+            width: 100%;
+        }
+
+        .image-container {
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .chart-container {
+            height: 360px;
+        }
+        .nav-menu {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .nav-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="font-body text-charcoal bg-white">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="text-2xl font-display font-bold text-navy">
+                        KAI-<span class="text-gold">VIDHYA</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Home</a>
+                        <a href="about.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">About Us</a>
+                        <a href="team.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Team</a>
+                        <a href="results.html" class="nav-link text-navy hover:text-gold transition-colors duration-300 font-medium">Results</a>
+                        <a href="gallery.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
+                        <a href="contact.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="hamburger-menu text-navy hover:text-gold focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Home</a>
+                <a href="about.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">About Us</a>
+                <a href="team.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Team</a>
+                <a href="results.html" class="nav-link block px-3 py-2 text-navy font-medium">Results</a>
+                <a href="gallery.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Gallery</a>
+                <a href="contact.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg pt-24 pb-16 relative">
+        <div class="floating-shapes">
+            <div class="shape w-16 h-16 bg-gold rounded-full"></div>
+            <div class="shape w-12 h-12 bg-navy transform rotate-45"></div>
+            <div class="shape w-20 h-20 bg-soft-blue rounded-lg"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+                Our <span class="gradient-text">Achievements</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-charcoal max-w-4xl mx-auto leading-relaxed">
+                Celebrating excellence in commerce education through outstanding results, 
+                academic achievements, and student success stories from 2018-2025.
+            </p>
+        </div>
+    </section>
+
+    <!-- Results Overview with Counters -->
+    <section class="section py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Excellence in <span class="text-gold">Numbers</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                    Our track record speaks for itself - consistent excellence across all programs 
+                    and examinations since 2018.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+
+                <div class="counter-box stagger-item p-8 text-center">
+                    <div class="counter-number" data-target="1000">10000+</div>
+                    <div class="text-lg font-semibold text-navy mt-2">
+                        Students Trained
+                    </div>
+                    <div class="text-sm text-charcoal mt-1">
+                        
+                    </div>
+                </div>
+            
+                <div class="counter-box stagger-item p-8 text-center">
+                    <div class="counter-number" data-target="95">95+</div>
+                    <div class="text-lg font-semibold text-navy mt-2">
+                        Success Rate %
+                    </div>
+                    <div class="text-sm text-charcoal mt-1">
+                        Overall Performance
+                    </div>
+                </div>
+            
+                <div class="counter-box stagger-item p-8 text-center">
+                    <div class="counter-number" data-target="75">Multiple</div>
+                    <div class="text-lg font-semibold text-navy mt-2">
+                        Rank Holders
+                    </div>
+                    <div class="text-sm text-charcoal mt-1">
+                        Board & University
+                    </div>
+                </div>
+            
+                <div class="counter-box stagger-item p-8 text-center">
+                    <div class="counter-number" data-target="100">Multiple</div>
+                    <div class="text-lg font-semibold text-navy mt-2">
+                        Perfect Scores
+                    </div>
+                    <div class="text-sm text-charcoal mt-1">
+                        100/100 Marks
+                    </div>
+                </div>
+            
+            </div>
+
+            
+            <!-- Performance Chart -->
+            <div class="relative p-10 rounded-3xl stagger-item
+            bg-white/80 backdrop-blur-xl
+            border border-navy/10
+            shadow-[0_20px_50px_rgba(26,35,126,0.15)]">
+                <h3 class="text-2xl font-display font-bold text-navy mb-6 text-center">
+                    Performance Trends Over Years
+                </h3>
+                <div id="performance-chart" class="chart-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Year-wise Results Section -->
+    <section class="section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Year-wise <span class="text-gold">Results</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                    A comprehensive look at our academic achievements from 2018 to 2025.
+                </p>
+            </div>
+
+            <div class="content-wrapper">
+                <!-- 2018-2019 Results -->
+                <div class="year-section section-block">
+                    <div class="stagger-item">
+                        <h3 class="year-title text-gold">2018-2019: Foundation of Success</h3>
+                        <p class="year-subtitle">Swapnil Shah's SHREEJI SWAPN - First Rank Holders</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="result-card p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-16 h-16 rounded-full bg-gold flex items-center justify-center text-navy font-bold text-2xl font-display mr-4">
+                                        <img src="/resources/shailja.png" alt="Shailja" class="w-full h-full rounded-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-navy text-xl">Shailja</h4>
+                                        <p class="text-sm text-charcoal">Ambe School</p>
+                                    </div>
+                                </div>
+                                <div class="achievement-badge mb-3">First Rank Holder</div>
+                                <div class="grid grid-cols-2 gap-2 text-sm">
+                                    <div class="bg-navy text-white p-2 rounded text-center">
+                                        <div class="font-bold">Accountancy</div>
+                                        <div class="text-xl font-display font-bold text-gold">99</div>
+                                    </div>
+                                    <div class="bg-navy text-white p-2 rounded text-center">
+                                        <div class="font-bold">Statistics</div>
+                                        <div class="text-xl font-display font-bold text-gold">98</div>
+                                    </div>
+                                    <div class="bg-navy text-white p-2 rounded text-center">
+                                        <div class="font-bold">Economics</div>
+                                        <div class="text-xl font-display font-bold text-gold">96</div>
+                                    </div>
+                                    <div class="bg-navy text-white p-2 rounded text-center">
+                                        <div class="font-bold">OCM</div>
+                                        <div class="text-xl font-display font-bold text-gold">98</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="result-card p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-16 h-16 rounded-full bg-gold flex items-center justify-center text-navy font-bold text-2xl font-display mr-4">
+                                        <img src="/resources/mohit.png" alt="Mohit" class="w-full h-full rounded-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-navy text-xl">Mohit</h4>
+                                        <p class="text-sm text-charcoal">Solver Oak</p>
+                                    </div>
+                                </div>
+                                <div class="achievement-badge mb-3">First Rank Holder</div>
+                                <div class="grid grid-cols-2 gap-2 text-sm">
+                                    <div class="bg-navy text-white p-2 rounded text-center">
+                                        <div class="font-bold">Accountancy</div>
+                                        <div class="text-xl font-display font-bold text-gold">98</div>
+                                    </div>
+                                    <div class="bg-navy text-white p-2 rounded text-center">
+                                        <div class="font-bold">Statistics</div>
+                                        <div class="text-xl font-display font-bold text-gold">99</div>
+                                    </div>
+                                    <div class="bg-navy text-white p-2 rounded text-center">
+                                        <div class="font-bold">Economics</div>
+                                        <div class="text-xl font-display font-bold text-gold">97</div>
+                                    </div>
+                                    <div class="bg-navy text-white p-2 rounded text-center">
+                                        <div class="font-bold">OCM</div>
+                                        <div class="text-xl font-display font-bold text-gold">95</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- MSU B.Com Toppers – Expanded -->
+                        <div class="mt-8 bg-navy p-8 rounded-2xl text-white">
+                            <h4 class="text-3xl font-bold text-gold mb-6 text-center">
+                                MSU B.Com Toppers
+                            </h4>
+                        
+                            <div class="bg-white/10 p-6 rounded-xl max-w-5xl mx-auto">
+                                <div class="text-center mb-4">
+                                    <div class="text-lg font-semibold">Swapnil Shah's</div>
+                                    <div class="text-3xl font-bold text-gold">
+                                        SHREEJI SWAPN
+                                    </div>
+                                    <div class="text-base mt-2">
+                                        Toppers Of MSU (B.Com.)
+                                    </div>
+                                </div>
+                            
+                                <div class="image-container">
+                                    <img
+                                        src="/resources/msu2018bcom.png"
+                                        alt="Shreeji Swapn MSU B.Com Toppers"
+                                        class="w-full h-auto rounded-xl object-cover"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2019-2020 Results -->
+                <div class="year-section section-block">
+                    <div class="stagger-item">
+                        <h3 class="year-title text-gold">2019-2020: Expanding Excellence</h3>
+                        <p class="year-subtitle">School Toppers & MSU B.Com Achievements</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="text-2xl font-bold text-navy mb-4">School Toppers</h4>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-soft-blue p-4 rounded-lg">
+                                        <div class="text-lg font-bold text-navy">Krina</div>
+                                        <div class="text-sm text-charcoal">Silver Oak</div>
+                                    </div>
+                                    <div class="bg-soft-blue p-4 rounded-lg">
+                                        <div class="text-lg font-bold text-navy">Yash</div>
+                                        <div class="text-sm text-charcoal">Silver Oak</div>
+                                    </div>
+                                    <div class="bg-soft-blue p-4 rounded-lg">
+                                        <div class="text-lg font-bold text-navy">Kashish</div>
+                                        <div class="text-sm text-charcoal">GPS</div>
+                                    </div>
+                                    <div class="bg-soft-blue p-4 rounded-lg">
+                                        <div class="text-lg font-bold text-navy">Dhairya</div>
+                                        <div class="text-sm text-charcoal">Stela Marry</div>
+                                    </div>
+                                </div>
+                                <div class="image-container mt-3">
+                                    <img src="/resources/school-2019.png" alt="School Toppers 2019-2020" class="w-full h-auto rounded-lg object-cover">
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-2xl font-bold text-navy mb-4">MSU B.Com Toppers</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-navy text-white p-4 rounded-lg">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-xl font-bold">Hetanshi</span>
+                                            <span class="text-3xl font-display font-bold text-gold">82%</span>
+                                        </div>
+                                        <div class="text-sm text-white/90">Statistics: 10/10 (100)</div>
+                                    </div>
+                                    <div class="bg-navy text-white p-4 rounded-lg">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="text-xl font-bold">Sakshi</span>
+                                            <span class="text-3xl font-display font-bold text-gold">87%</span>
+                                        </div>
+                                        <div class="text-sm text-white/90">Statistics: 10/10 (100)</div>
+                                    </div>
+                                    <div class="bg-soft-blue p-3 rounded-lg">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-lg font-bold text-navy">Krishna</span>
+                                            <span class="text-xl font-display font-bold text-navy">77%</span>
+                                        </div>
+                                        <div class="text-sm text-charcoal">Accountancy: 10/10 (100)</div>
+                                    </div>
+                                    <div class="image-container mt-3">
+                                        <img src="/resources/2019-msu.png" alt="MSU B.Com Toppers 2019-2020" class="w-full h-auto rounded-lg object-cover">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 bg-gold p-6 rounded-xl text-center">
+                            <h4 class="text-2xl font-display font-bold text-navy mb-2">Students Scoring 100/100 (O Grade)</h4>
+                            <p class="text-lg text-navy">Multiple students achieved perfect scores in core subjects</p>
+                            <div class="image-container mt-4">
+                                <img src="/resources/2019-O-grade.png" alt="Perfect Scores 2019-2020" class="w-full h-auto rounded-lg object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2020-2022 COVID Years -->
+                <div class="year-section section-block stagger-item bg-navy text-white">
+                    <h3 class="year-title text-gold">2020-2022: Resilience Through Challenges</h3>
+                    <p class="year-subtitle text-white/90">Covid Impacted Years - Education Continues</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-white/10 p-6 rounded-xl">
+                            <div class="flex items-center gap-4 mb-4">
+                                <i class="fas fa-heart text-gold text-3xl"></i>
+                                <h4 class="text-2xl font-bold text-gold">Resilience</h4>
+                            </div>
+                            <p class="text-white/90 leading-relaxed">
+                                Despite unprecedented challenges, our commitment to education never wavered. We adapted quickly to online learning, ensuring every student received the same quality education they deserved.
+                            </p>
+                        </div>
+
+                        <div class="bg-white/10 p-6 rounded-xl">
+                            <div class="flex items-center gap-4 mb-4">
+                                <i class="fas fa-laptop text-gold text-3xl"></i>
+                                <h4 class="text-2xl font-bold text-gold">Innovation</h4>
+                            </div>
+                            <p class="text-white/90 leading-relaxed">
+                                We embraced digital transformation, creating engaging online classes, virtual doubt-solving sessions, and comprehensive digital study materials for uninterrupted learning.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-gold p-6 rounded-xl text-center">
+                        <h4 class="text-3xl font-display font-bold text-navy mb-2">"Education Continues, Dreams Persist"</h4>
+                        <p class="text-lg text-navy">Our students and teachers showed extraordinary dedication during these challenging times.</p>
+                    </div>
+                </div>
+
+                <!-- 2022-2023 Results -->
+                <div class="year-section section-block">
+                    <div class="stagger-item">
+                        <h3 class="year-title text-gold">2022-2023: The New Era Begins</h3>
+                        <p class="year-subtitle">Inception of KAI-V - First Rankers in Respective Schools</p>
+                        
+                        <!-- School Toppers Group Photo -->
+                        <div class="mb-12">
+                            <h4 class="text-2xl font-bold text-navy mb-6">School Toppers</h4>
+                            <div class="bg-white p-8 rounded-xl shadow-lg">
+                                <div class="image-container mb-6">
+                                    <img src="/resources/school-toppers-2022-23.png" alt="School Toppers 2022-2023" class="w-full h-auto rounded-lg object-cover">
+                                </div>
+                                <div class="image-container mb-6">
+                                    <img src="/resources/school-toppers-2022-23-2.png" alt="School Toppers 2022-2023" class="w-full h-auto rounded-lg object-cover">
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg text-charcoal mb-4">
+                                        Outstanding performers who topped their respective schools in the 2022-2023 examinations
+                                    </p>
+                                    <div class="bg-gold text-navy p-4 rounded-lg inline-block font-semibold">
+                                        Multiple School Rank Holders
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- MSU B.Com Toppers Group Photo -->
+                        <div class="mb-12">
+                            <h4 class="text-2xl font-bold text-navy mb-6">MSU B.Com Toppers</h4>
+                            <div class="bg-navy text-white p-8 rounded-xl">
+                                <div class="image-container mb-6">
+                                    <img src="/resources/msu-toppers-2022-23.png" alt="MSU B.Com Toppers 2022-2023" class="w-full h-auto rounded-lg object-cover">
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg text-white/90 mb-4">
+                                        University excellence - Our students securing top positions in MSU B.Com examination
+                                    </p>
+                                    <div class="bg-gold text-navy p-4 rounded-lg inline-block font-semibold">
+                                        Top University Performers
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Perfect Scorers Group Photo -->
+                        <div class="mb-12">
+                            <h4 class="text-2xl font-bold text-navy mb-6">Perfect Scorers - O Grade (100/100)</h4>
+                            <div class="bg-gold p-8 rounded-xl">
+                                <div class="image-container mb-6">
+                                    <img src="/resources/perfect-scores-2022-23.png" alt="Students with Perfect Scores 2022-2023" class="w-full h-auto rounded-lg object-cover">
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg text-navy mb-4">
+                                        Exceptional achievers who scored perfect 100/100 marks in core subjects
+                                    </p>
+                                    <div class="bg-navy text-gold p-4 rounded-lg inline-block font-semibold">
+                                        Perfect Score Achievers
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rising Stars Group Photo -->
+                        <div>
+                            <h4 class="text-2xl font-bold text-navy mb-6">Rising Stars - High Achievers</h4>
+                            <div class="bg-soft-blue p-8 rounded-xl">
+                                <div class="image-container mb-6">
+                                    <img src="/resources/rising-stars-2022-23.png" alt="Rising Stars 2022-2023" class="w-full h-auto rounded-lg object-cover">
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-lg text-charcoal mb-4">
+                                        Young talents scoring above average, setting the foundation for future excellence
+                                    </p>
+                                    <div class="bg-navy text-gold p-4 rounded-lg inline-block font-semibold">
+                                        High Achievers
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2023-2024 Results -->
+                <div class="year-section section-block">
+                    <div class=" mb-16">
+                        <h3 class="year-title text-gold">Result: 2023 - 24</h3>
+                        <p class="year-subtitle">
+                            11th & 12th Commerce (GSEB & CBSE - Major Subjects) and B.Com.
+                        </p>
+                    </div>
+
+                    <!-- School Toppers -->
+                    <div class="mb-20">
+                        <h4 class="text-3xl font-display font-bold text-navy text-center mb-2">
+                            School Toppers
+                        </h4>
+                        <p class="text-center text-charcoal mb-10">
+                            1<sup>st</sup> Rankers in Respective Schools
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank(A/c-100 | B.S.-89 | Eco.-97)
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/lisha.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Lisha</h5>
+                                    <p class="text-sm text-charcoal">Urmi School</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "Pratik Desai sir has inspired us to aspire, helping me score 100/100 in Accountancy."
+                                </p>
+                            </div>
+                        
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank(A/c-96 | B.S.-98 | Eco.-95)
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/richie.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Richie</h5>
+                                    <p class="text-sm text-charcoal">PARG School</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "It was a great experience to learn and grow under the guidance of teachers' of SSIC (KAI-V)."
+                                </p>
+                            </div>
+                        
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/kush.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Kush</h5>
+                                    <p class="text-sm text-charcoal">PARG School</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "SSIC (KAI-V) coaching provided a unique learning experience, with clear concepts and support from mentors who helped me excel. I'm truly grateful to them."
+                                </p>
+                            </div>
+                        
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/falak.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Falak</h5>
+                                    <p class="text-sm text-charcoal">Ambe School</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "SSIC (KAI-V) has provided great education to me. The teaching methods are interactive and innovative, making complex concepts easy to understand."
+                                </p>
+                            </div>
+                        
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/jahnavi.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Jahnavi</h5>
+                                    <p class="text-sm text-charcoal">Don Bosco School</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "I had the best experience at SSIC (KAI-V). They have the best and very intellectual way of teaching. This is the best institute for commerce."
+                                </p>
+                            </div>
+                        
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/dolly.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Dolly</h5>
+                                    <p class="text-sm text-charcoal">LFS School</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "Swapnil Sir's dedication, discipline, and structured lessons have profoundly enhanced my learning."
+                                </p>
+                            </div>
+                        
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/harshit.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Harshit</h5>
+                                    <p class="text-sm text-charcoal">PARG School</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "SSIC (KAI-V) was more than just a learning platform. It is a temple of wisdom that shaped my academic foundation and ignited my confidence."
+                                </p>
+                            </div>
+                        
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/varuna.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Varuna</h5>
+                                    <p class="text-sm text-charcoal">Atmiya Vidyalay</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "The guidance and motivation I've received from my teachers have made a lasting impact on me. This place has been more than just a center for learning."
+                                </p>
+                            </div>
+                        
+                            <!-- CARD -->
+                            <div class="bg-white rounded-2xl shadow-xl p-6 relative stagger-item">
+                                <span class="absolute -top-4 left-6 bg-gold text-navy px-4 py-1 rounded-full text-sm font-bold">
+                                    1st Rank
+                                </span>
+                            
+                                <div class="flex flex-col items-center text-center mb-4">
+                                    <img src="/resources/harsh90.png" loading="lazy"
+                                         class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
+                                    <h5 class="text-2xl font-display font-bold text-navy">Harsh</h5>
+                                    <p class="text-sm text-charcoal">Ambe School</p>
+                                </div>
+                            
+                                <p class="text-charcoal italic leading-relaxed text-center">
+                                    "SSIC (KAI-V) coaching has been a transformative journey, providing expert guidance and inspiring continuous growth."
+                                </p>
+                            </div>
+                        
+                        </div>
+
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="bg-navy text-white py-6 rounded-xl text-center mb-20">
+                        <h4 class="text-2xl font-display font-bold">
+                            Congratulations To Our Rising Stars
+                        </h4>
+                    </div>
+
+                    <!-- 90+ Scorers -->
+                    <div class="mt-16">
+                    
+                        <h4 class="text-3xl font-display font-bold text-navy text-center mb-12">
+                            90 and Above Marks in Core Subjects
+                        </h4>
+                    
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/heti90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Heti</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/manav90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Manav</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/maitri90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Maitri</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/siddhi90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Siddhi</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/vijendra90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Vijendra</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/heenali90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Heenali</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/krupa90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Krupa</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/khushi90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Khushi</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/yatharth90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Yatharth</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/dhruv90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Dhurv</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/varun90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Varun</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/ridhi90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Ridhi</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/margi90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Margi</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/anjali90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Anjali</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/anotherHeliLolAb90.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Heli</div>
+                            </div>
+                        
+                            <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                                <img src="resources/megh90ab.png" loading="lazy"
+                                     onerror="this.src='resources/placeholder.png'"
+                                     class="w-full h-44 object-cover">
+                                <div class="bg-navy text-white py-2 font-semibold">Megh</div>
+                            </div>
+                        
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 2024-2025 Results -->
+                <div class="year-section section-block">
+                    <div class="stagger-item">
+                        <h3 class="year-title text-gold">2024-2025: Excellence Redefined</h3>
+                        <p class="year-subtitle">CBSE & GSEB Champions - Maximum Score Achievement</p>
+                        
+                        <div class="grid md:grid-cols-[1fr_32px_1fr] gap-8 mb-8 items-start">
+                            <!-- CBSE Results -->
+                            <div>
+                                <h4 class="text-2xl font-bold text-navy mb-4 flex items-center gap-2">
+                                    <i class="fas fa-graduation-cap text-gold"></i>
+                                    CBSE Results
+                                </h4>
+                                <div class="bg-gold p-4 rounded-lg mb-4">
+                                    <h5 class="text-lg font-bold text-navy mb-2">Max Scores Achieved</h5>
+                                    <div class="grid grid-cols-3 gap-2 text-sm">
+                                        <div class="bg-white p-2 rounded text-center">
+                                            <div class="font-bold text-navy">Accountancy</div>
+                                            <div class="text-xl font-display font-bold text-navy">99</div>
+                                        </div>
+                                        <div class="bg-white p-2 rounded text-center">
+                                            <div class="font-bold text-navy">Economics</div>
+                                            <div class="text-xl font-display font-bold text-navy">99</div>
+                                        </div>
+                                        <div class="bg-white p-2 rounded text-center">
+                                            <div class="font-bold text-navy">Business Studies</div>
+                                            <div class="text-xl font-display font-bold text-navy">98</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CBSE Toppers Grid -->
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/harshitram2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Harshitram</div>
+                                        <div class="text-sm text-navy">94.2%</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/divya2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Divya</div>
+                                        <div class="text-sm text-navy">94.2%</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/kush2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Kush</div>
+                                        <div class="text-sm text-navy">93.8%</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/harsh2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Harsh</div>
+                                        <div class="text-sm text-navy">93.4%</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/harsh2024-25-2.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Harsh</div>
+                                        <div class="text-sm text-navy">92.6%</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/rudra2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Rudra</div>
+                                        <div class="text-sm text-navy">92.2%</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/rohit2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Rohit</div>
+                                        <div class="text-sm text-navy">88.8%</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/krishna2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Krishna</div>
+                                        <div class="text-sm text-navy">88.8%</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/sakshi2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Sakshi</div>
+                                        <div class="text-sm text-navy">88.8%</div>
+                                    </div>
+                                
+                                </div>
+
+
+                            </div>
+                            <!-- Separator -->
+                            <div class="hidden md:flex justify-center">
+                                <div class="w-1 bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+                            </div>
+                            <!-- GSEB Results -->
+                            <div>
+                                <h4 class="text-2xl font-bold text-navy mb-4 flex items-center gap-2">
+                                    <i class="fas fa-medal text-gold"></i>
+                                    GSEB Results
+                                </h4>
+                                <div class="bg-gold p-4 rounded-lg mb-4">
+                                    <h5 class="text-lg font-bold text-navy mb-2">Max Scores Achieved</h5>
+                                    <div class="grid grid-cols-4 gap-1 text-xs">
+                                        <div class="bg-white p-2 rounded text-center">
+                                            <div class="font-bold text-navy">A/c</div>
+                                            <div class="text-lg font-display font-bold text-navy">99</div>
+                                        </div>
+                                        <div class="bg-white p-2 rounded text-center">
+                                            <div class="font-bold text-navy">Stats</div>
+                                            <div class="text-lg font-display font-bold text-navy">99</div>
+                                        </div>
+                                        <div class="bg-white p-2 rounded text-center">
+                                            <div class="font-bold text-navy">Eco</div>
+                                            <div class="text-lg font-display font-bold text-navy">97</div>
+                                        </div>
+                                        <div class="bg-white p-2 rounded text-center">
+                                            <div class="font-bold text-navy">OC</div>
+                                            <div class="text-lg font-display font-bold text-navy">97</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- GSEB Toppers Grid -->
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/pushya2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Pushya</div>
+                                        <div class="text-sm text-navy">PR 96.61</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/kripa2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Kripa</div>
+                                        <div class="text-sm text-navy">PR 95.74</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/azla2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Azla</div>
+                                        <div class="text-sm text-navy">PR 95.05</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/gurkirat2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Gurkirat</div>
+                                        <div class="text-sm text-navy">PR 94.90</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/priyal2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Priyal</div>
+                                        <div class="text-sm text-navy">PR 94.31</div>
+                                    </div>
+                                
+                                    <div class="text-center">
+                                        <img src="/resources/aryan2024-25.png" class="w-28 h-28 mx-auto rounded-2xl object-cover">
+                                        <div class="font-semibold text-navy mt-2">Aryan</div>
+                                        <div class="text-sm text-navy">PR 92.01</div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CA Foundation Achievers -->
+                <div class="year-section section-block stagger-item bg-navy text-white">
+
+                    <h3 class="year-title text-gold">CA Foundation Achievers</h3>
+                    <p class="year-subtitle text-white/90">
+                        Celebrating Excellence – Our CA Foundation Results
+                    </p>
+                
+                    <!-- Rank Highlights -->
+                    <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    
+                        <div class="bg-white/10 p-6 rounded-xl text-center">
+                            <i class="fas fa-trophy text-gold text-5xl mb-4"></i>
+                            <h4 class="text-3xl font-display font-bold text-gold mb-2">
+                                All India Rank
+                            </h4>
+                            <div class="text-6xl font-display font-bold text-white mb-2">
+                                11
+                            </div>
+                            <div class="text-xl text-gold font-semibold">
+                                Vadodara Rank: 1
+                            </div>
+                            <p class="text-white/80 mt-4 text-sm">
+                                Outstanding performance at national level in CA Foundation
+                            </p>
+                        </div>
+                    
+                        <div class="bg-white/10 p-6 rounded-xl text-center">
+                            <i class="fas fa-medal text-gold text-5xl mb-4"></i>
+                            <h4 class="text-3xl font-display font-bold text-gold mb-2">
+                                Vadodara Rank
+                            </h4>
+                            <div class="text-6xl font-display font-bold text-white mb-2">
+                                2
+                            </div>
+                            <div class="text-xl text-gold font-semibold">
+                                City Rank Holder
+                            </div>
+                            <p class="text-white/80 mt-4 text-sm">
+                                Consistent excellence among Vadodara CA aspirants
+                            </p>
+                        </div>
+                    
+                    </div>
+                
+                    <h4 class="text-3xl font-display font-bold text-gold text-center mb-12">
+                        CA Foundation Result Highlights (ICAI)
+                    </h4>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    
+                        <!-- Card -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 text-center">
+                            <div class="text-xl font-bold text-navy mb-1">
+                                Harsh Sarvaiya
+                            </div>
+                            <div class="text-sm text-charcoal mb-3">
+                                CA Foundation – Sept 2025
+                            </div>
+                        
+                            <div class="bg-gold text-navy font-bold py-2 rounded-lg mb-3">
+                                AIR 11 · Vadodara Rank 1
+                            </div>
+                        
+                            <div class="text-sm text-charcoal mb-4">
+                                Total Marks: <strong>333 / 400</strong><br>
+                                Result: <strong>Pass with Distinction</strong>
+                            </div>
+                        
+                            <a href="resources/ca/ca-result-1.png"
+                               target="_blank"
+                               class="inline-block bg-navy text-white px-6 py-2 rounded-lg font-semibold hover:bg-gold hover:text-navy transition">
+                                View Official ICAI Result
+                            </a>
+                        </div>
+                    
+                        <!-- Card -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 text-center">
+                            <div class="text-xl font-bold text-navy mb-1">
+                                Kanzariya Harsh
+                            </div>
+                            <div class="text-sm text-charcoal mb-3">
+                                CA Foundation – Sept 2025
+                            </div>
+                        
+                            <div class="bg-gold text-navy font-bold py-2 rounded-lg mb-3">
+                                Vadodara Rank 2
+                            </div>
+                        
+                            <div class="text-sm text-charcoal mb-4">
+                                Total Marks: <strong>315 / 400</strong><br>
+                                Result: <strong>Pass with Distinction</strong>
+                            </div>
+                        
+                            <a href="resources/ca/ca-result-2.png"
+                               target="_blank"
+                               class="inline-block bg-navy text-white px-6 py-2 rounded-lg font-semibold hover:bg-gold hover:text-navy transition">
+                                View Official ICAI Result
+                            </a>
+                        </div>
+                    
+                        <!-- Card -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 text-center">
+                            <div class="text-xl font-bold text-navy mb-1">
+                                Rudra Patel
+                            </div>
+                            <div class="text-sm text-charcoal mb-3">
+                                CA Foundation – Sept 2025
+                            </div>
+                        
+                            <div class="bg-gold text-navy font-bold py-2 rounded-lg mb-3">
+                                Successful Candidate
+                            </div>
+                        
+                            <div class="text-sm text-charcoal mb-4">
+                                Total Marks: <strong>279 / 400</strong><br>
+                                Result: <strong>Pass</strong>
+                            </div>
+                        
+                            <a href="resources/ca/ca-result-3.png"
+                               target="_blank"
+                               class="inline-block bg-navy text-white px-6 py-2 rounded-lg font-semibold hover:bg-gold hover:text-navy transition">
+                                View Official ICAI Result
+                            </a>
+                        </div>
+                        <!-- Card -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 text-center">
+                            <div class="text-xl font-bold text-navy mb-1">
+                                Rohit Sharma
+                            </div>
+                            <div class="text-sm text-charcoal mb-3">
+                                CA Foundation – Sept 2025
+                            </div>
+                        
+                            <div class="bg-gold text-navy font-bold py-2 rounded-lg mb-3">
+                                Successful Candidate
+                            </div>
+                        
+                            <div class="text-sm text-charcoal mb-4">
+                                Total Marks: <strong>251 / 400</strong><br>
+                                Result: <strong>Pass</strong>
+                            </div>
+                        
+                            <a href="resources/ca/ca-result-4.png"
+                               target="_blank"
+                               class="inline-block bg-navy text-white px-6 py-2 rounded-lg font-semibold hover:bg-gold hover:text-navy transition">
+                                View Official ICAI Result
+                            </a>
+                        </div>
+                        <!-- Card -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 text-center">
+                            <div class="text-xl font-bold text-navy mb-1">
+                                Divya
+                            </div>
+                            <div class="text-sm text-charcoal mb-3">
+                                CA Foundation – Sept 2025
+                            </div>
+                        
+                            <div class="bg-gold text-navy font-bold py-2 rounded-lg mb-3">
+                                Successful Candidate
+                            </div>
+                        
+                            <div class="text-sm text-charcoal mb-4">
+                                Total Marks: <strong>249 / 400</strong><br>
+                                Result: <strong>Pass</strong>
+                            </div>
+                        
+                            <a href="resources/ca/ca-result-5.png"
+                               target="_blank"
+                               class="inline-block bg-navy text-white px-6 py-2 rounded-lg font-semibold hover:bg-gold hover:text-navy transition">
+                                View Official ICAI Result
+                            </a>
+                        </div>
+                        <!-- Card -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 text-center">
+                            <div class="text-xl font-bold text-navy mb-1">
+                                Harshitram Iyer
+                            </div>
+                            <div class="text-sm text-charcoal mb-3">
+                                CA Foundation – Sept 2025
+                            </div>
+                        
+                            <div class="bg-gold text-navy font-bold py-2 rounded-lg mb-3">
+                                Successful Candidate
+                            </div>
+                        
+                            <div class="text-sm text-charcoal mb-4">
+                                Total Marks: <strong>243 / 400</strong><br>
+                                Result: <strong>Pass</strong>
+                            </div>
+                        
+                            <a href="resources/ca/ca-result-6.png"
+                               target="_blank"
+                               class="inline-block bg-navy text-white px-6 py-2 rounded-lg font-semibold hover:bg-gold hover:text-navy transition">
+                                View Official ICAI Result
+                            </a>
+                        </div>
+                    
+                    </div>
+
+                
+                    
+                
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Alumni Success Stories -->
+    <section class="section py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Alumni <span class="text-gold">Success Stories</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                    Where our students are today - professional achievements and testimonials.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="result-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-navy font-bold text-3xl font-display"><img src="resources/mohit-ca.png" alt="CA Mohit Panchal" class="w-full h-full rounded-full object-cover"></div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-navy">CA Mohit Panchal</h3>
+                            <p class="text-lg text-charcoal">Chartered Accountant</p>
+                        </div>
+                    </div>
+                    <div class="text-5xl text-gold mb-4">"</div>
+                    <p class="text-base text-charcoal leading-relaxed italic mb-6">
+                        My experience with Swapnil Sir's Shreeji Swapn Institute of Commerce (SSIC) has been truly memorable and enriching. The faculties provide in-depth conceptual clarity, and during exams Swapnil Sir was always available 24x7 for guidance. SSIC truly lives up to its motto - where winning is a habit and success an outcome. As a Chartered Accountant today, I proudly say the foundation laid at SSIC was integral to my success.
+                    </p>
+                    <div class="bg-navy text-white p-4 rounded-lg text-center">
+                        <div class="text-xl font-bold text-gold">PROUD TO BE A PART OF SSIC</div>
+                    </div>
+                </div>
+
+                <div class="result-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-navy font-bold text-3xl font-display"><img src="resources/maitry-cma.png" alt="CA Mohit Panchal" class="w-full h-full rounded-full object-cover"></div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-navy">CMA Maitry Tailor</h3>
+                            <p class="text-lg text-charcoal">Cost & Management Accountant</p>
+                        </div>
+                    </div>
+                    <div class="text-5xl text-gold mb-4">"</div>
+                    <p class="text-base text-charcoal leading-relaxed italic mb-6">
+                        SSIC has been the strongest pillar of my academic success. The systematic class tests ensured timely revision and improved my writing speed, while the comprehensive study material made even complex topics easy to understand. Unlike many institutes, SSIC focuses on the progress of every student, not just the toppers. The faculties teach from the heart and guide with genuine care. As a CMA today, I can confidently say SSIC has been the foundation of my success story.
+                    </p>
+                    <div class="bg-navy text-white p-4 rounded-lg text-center">
+                        <div class="text-xl font-bold text-gold">FOUNDATION OF MY SUCCESS STORY</div>
+                    </div>
+                </div>
+
+                <div class="result-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-navy font-bold text-3xl font-display"><img src="resources/reshma-cs.png" alt="CA Mohit Panchal" class="w-full h-full rounded-full object-cover"></div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-navy">CS Reshma</h3>
+                            <p class="text-lg text-charcoal">Company Secretary</p>
+                        </div>
+                    </div>
+                    <div class="text-5xl text-gold mb-4">"</div>
+                    <p class="text-base text-charcoal leading-relaxed italic mb-6">
+                        SSIC has been a turning point in my journey. Beyond academics, the institute helped me build confidence, communication, and presentation skills - qualities that matter in every professional's career. The motivating environment, continuous mentoring, and real exam-like practice through mocks kept me focused and stress-free. Today, as a Company Secretary, I value not just the knowledge but also the life lessons SSIC gave me.
+                    </p>
+                    <div class="bg-navy text-white p-4 rounded-lg text-center">
+                        <div class="text-xl font-bold text-gold">PROUD TO BE AN SSICIAN!</div>
+                    </div>
+                </div>
+
+                <div class="result-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-20 h-20 rounded-full flex items-center justify-center text-navy font-bold text-3xl font-display"><img src="resources/naveen-sbi.png" alt="CA Mohit Panchal" class="w-full h-full rounded-full object-cover"></div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-navy">Naveen Kathuria</h3>
+                            <p class="text-lg text-charcoal">Manager - State Bank of India</p>
+                        </div>
+                    </div>
+                    <div class="text-5xl text-gold mb-4">"</div>
+                    <p class="text-base text-charcoal leading-relaxed italic mb-6">
+                        SSIC has been more than an institute for me - it's where my journey truly began. The guidance, care, and encouragement I received here gave me the confidence to dream big and achieve them. With the support of SSIC, I secured 1st rank in B.Com, which became a turning point in my academic journey. Today, as an SBI Manager, I feel grateful to SSIC for laying the strong foundation of my career and shaping me into who I am.
+                    </p>
+                    <div class="bg-navy text-white p-4 rounded-lg text-center">
+                        <div class="text-xl font-bold text-gold">SHAPING MY CAREER</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- Footer – NEW (for results.html) -->
+<footer class="bg-navy text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+
+      <!-- Brand -->
+      <div class="md:col-span-2">
+        <div class="text-3xl font-display font-bold mb-4">KAI-<span class="text-gold">VIDHYA</span></div>
+        <p class="text-gray-300 mb-6 max-w-md">
+          An ocean of knowledge where conceptual strength becomes professional success.
+          Celebrating every achievement, nurturing every talent.
+        </p>
+        <div class="flex space-x-4">
+          <a href="https://instagram.com/kai__vidhya" target="_blank" aria-label="Instagram" class="text-gold hover:text-white transition-colors">
+            <!-- Instagram glyph -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+              <path d="M16 11.37a4 4 0 11-7.92 0 4 4 0 017.92 0zM17.5 6.5" stroke-width="2"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="index.html" class="text-gray-300 hover:text-gold transition-colors">Home</a></li>
+          <li><a href="about.html" class="text-gray-300 hover:text-gold transition-colors">About Us</a></li>
+          <li><a href="team.html" class="text-gray-300 hover:text-gold transition-colors">Our Team</a></li>
+          <li><a href="gallery.html" class="text-gray-300 hover:text-gold transition-colors">Gallery</a></li>
+          <li><a href="contact.html" class="text-gray-300 hover:text-gold transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Centres -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Our Centres</h3>
+        <ul class="space-y-2 text-sm text-gray-300">
+          <li>📍 Manjalpur – F-134, Sahjanand Flats, Opp. Saraswati Complex, Vadodara 390011</li>
+          <li>📍 Dabhoi Road – Das Plaza, Vrundavan Cross Rd., Vadodara 390019</li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+  <h3 class="text-lg font-semibold mb-4">Get in Touch</h3>
+
+  <ul class="space-y-2 text-sm text-gray-300">
+
+    <!-- Phone -->
+    <li>
+      <a href="tel:+919537337337"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>📞</span>
+        +91 9537 337 337
+      </a>
+    </li>
+
+    <!-- Email -->
+    <li>
+      <a href="mailto:info@kaividhya.com"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>✉️</span>
+        info@kaividhya.com
+      </a>
+    </li>
+
+    <!-- Instagram -->
+    <li>
+      <a href="https://instagram.com/kai__vidhya"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>📸</span>
+        @kai__vidhya
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+    </div>
+
+    <!-- Bottom line -->
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400 text-sm">
+      Winning is a habit & success an outcome. | © KAI-VIDHYA. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    <script>
+        // Initialize performance chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll(".section");
+
+            const observer = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("animate-in");
+
+                            // Resize chart when its section becomes visible
+                            if (entry.target.querySelector('#performance-chart') && window.performanceChart) {
+                                setTimeout(() => {
+                                    window.performanceChart.resize();
+                                }, 300);
+                            }
+
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
+
+            sections.forEach(section => observer.observe(section));
+            
+            const chartDom = document.getElementById('performance-chart');
+            if (chartDom) {
+                const myChart = echarts.init(chartDom);
+                window.performanceChart = myChart;
+                
+                const option = {
+    backgroundColor: 'transparent',
+
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'shadow'
+        }
+    },
+
+    legend: {
+        top: 10,
+        right: 20,
+        textStyle: {
+            fontSize: 14,
+            fontFamily: 'Inter',
+            color: '#37474f'
+        }
+    },
+
+    grid: {
+        left: '5%',
+        right: '5%',
+        bottom: '8%',
+        top: '18%',
+        containLabel: true
+    },
+
+    xAxis: {
+        type: 'category',
+        data: ['2018-19', '2019-20', '2020-22', '2022-23', '2023-24', '2024-25'],
+        axisLine: { lineStyle: { color: '#cfd8dc' } },
+        axisTick: { show: false },
+        axisLabel: {
+            fontSize: 13,
+            fontFamily: 'Inter',
+            color: '#37474f'
+        }
+    },
+
+    yAxis: [
+        {
+            type: 'value',
+            name: 'Success Rate (%)',
+            nameTextStyle: {
+                fontSize: 14,
+                fontFamily: 'Inter',
+                color: '#1a237e'
+            },
+            splitLine: {
+                lineStyle: {
+                    color: '#e3f2fd'
+                }
+            }
+        },
+        
+    ],
+
+    series: [
+        {
+            name: 'Success Rate %',
+            type: 'line',
+            smooth: true,
+            data: [94, 95, 100, 95, 94,95],
+            symbolSize: 8,
+            lineStyle: {
+                width: 4,
+                color: '#1a237e'
+            },
+            itemStyle: {
+                color: '#1a237e'
+            },
+            areaStyle: {
+                color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [
+                        { offset: 0, color: 'rgba(26,35,126,0.35)' },
+                        { offset: 1, color: 'rgba(26,35,126,0.05)' }
+                    ]
+                }
+            }
+        },
+        
+    ]
+};
+
+                
+                myChart.setOption(option);
+                
+                // Responsive chart
+                window.addEventListener('resize', function() {
+                    myChart.resize();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

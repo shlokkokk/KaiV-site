@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - KAI-VIDHYA | Student Activities & Events</title>
+    <meta name="description" content="Explore KAI-VIDHYA's vibrant student life through our gallery of presentations, industrial visits, celebrations, workshops, and academic events.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+    <link rel="icon" type="image/png" href="/resources/logo.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a237e',
+                        'gold': '#ffb300',
+                        'soft-blue': '#e3f2fd',
+                        'charcoal': '#37474f'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['Source Code Pro', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #e3f2fd;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #1a237e, #283593);
+        border-radius: 10px;
+        border: 2px solid #e3f2fd;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #ffb300, #ffc107);
+    }
+    
+    .hero-bg {
+        background: linear-gradient(135deg, rgba(26, 35, 126, 0.05) 0%, rgba(227, 242, 253, 0.1) 100%);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .section {
+    opacity: 1;
+    transform: translateY(0);
+    }
+
+    .section.animate-in {
+        animation: fadeUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .stagger-item {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .stagger-item.animate-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .navbar.sticky {
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        grid-auto-rows: 250px;
+    }
+    
+    .gallery-item {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: white;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(26, 35, 126, 0.15);
+    }
+    
+    .gallery-item.tall {
+        grid-row: span 2;
+    }
+    
+    .gallery-item.wide {
+        grid-column: span 2;
+    }
+    
+    .gallery-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover .gallery-image {
+        transform: scale(1.05);
+    }
+    
+    .gallery-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+        color: white;
+        padding: 1.5rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+        transform: translateY(0);
+    }
+    
+    .filter-btn {
+        background: white;
+        border: 2px solid #e3f2fd;
+        color: #1a237e;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .filter-btn:hover,
+    .filter-btn.active {
+        background: #1a237e;
+        border-color: #1a237e;
+        color: white;
+    }
+    
+    .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .lightbox.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .lightbox-content {
+        max-width: 90vw;
+        max-height: 90vh;
+        position: relative;
+    }
+    
+    .lightbox-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        border-radius: 0.5rem;
+    }
+    
+    .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+    
+    .lightbox-close:hover {
+        color: #ffb300;
+    }
+    
+    .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.5);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .lightbox-nav:hover {
+        background: rgba(255, 179, 0, 0.8);
+        color: #1a237e;
+    }
+    
+    .lightbox-prev {
+        left: -70px;
+    }
+    
+    .lightbox-next {
+        right: -70px;
+    }
+    .category-badge {
+        background: linear-gradient(135deg, #ffb300 0%, #ffc107 100%);
+        color: #1a237e;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+    
+    .gradient-text {
+        background: linear-gradient(135deg, #1a237e 0%, #ffb300 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+    
+    .shape {
+        position: absolute;
+        opacity: 0.1;
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .shape:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .shape:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+    .shape:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(180deg); }
+    }
+    
+    .filterable-item {
+        opacity: 1;
+        transform: scale(1);
+        transition: all 0.3s ease;
+    }
+    
+    .filterable-item.hidden {
+        opacity: 0;
+        transform: scale(0.8);
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        .gallery-grid {
+            grid-template-columns: 1fr;
+            grid-auto-rows: 200px;
+        }
+        
+        .gallery-item.wide {
+            grid-column: span 1;
+        }
+        
+        .gallery-item.tall {
+            grid-row: span 1;
+        }
+        
+        .lightbox-nav {
+            display: none;
+        }
+    }
+    .nav-menu {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .nav-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="font-body text-charcoal bg-white">
+    
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="text-2xl font-display font-bold text-navy">
+                        KAI-<span class="text-gold">VIDHYA</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Home</a>
+                        <a href="about.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">About Us</a>
+                        <a href="team.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Team</a>
+                        <a href="results.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Results</a>
+                        <a href="gallery.html" class="nav-link text-navy hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
+                        <a href="contact.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button class="hamburger-menu text-navy hover:text-gold focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Home</a>
+                <a href="about.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">About Us</a>
+                <a href="team.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Team</a>
+                <a href="results.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Results</a>
+                <a href="gallery.html" class="nav-link block px-3 py-2 text-navy font-medium">Gallery</a>
+                <a href="contact.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-bg pt-24 pb-16 relative">
+        <div class="floating-shapes">
+            <div class="shape w-16 h-16 bg-gold rounded-full"></div>
+            <div class="shape w-12 h-12 bg-navy transform rotate-45"></div>
+            <div class="shape w-20 h-20 bg-soft-blue rounded-lg"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+                Student Life <span class="gradient-text">Gallery</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-charcoal max-w-4xl mx-auto leading-relaxed">
+                Experience the vibrant and dynamic learning environment at KAI-VIDHYA 
+                through our students' achievements, activities, and memorable moments.
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="section py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="filter-btn active" data-filter="all">All Activities</button>
+                    <button class="filter-btn" data-filter="presentations">Student Presentations</button>
+                    <button class="filter-btn" data-filter="celebrations">Infrastructure</button>
+                    <button class="filter-btn" data-filter="classroom">Sports Activities</button>
+                    <button class="filter-btn" data-filter="workshops">Workshops & Seminars</button>
+                    <button class="filter-btn" data-filter="guidance">Picnics / Trips</button>
+                    <button class="filter-btn" data-filter="visits">Industrial Visits</button>
+                    <button class="filter-btn" data-filter="events">Cultural Events & Days Celebrations</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="section py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="gallery-grid">
+
+
+
+                <!-- Gallery Item 1 - Student Presentations -->
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P1.jpg" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P2.jpg" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P3.jpg" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P4.jpg" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P5.jpg" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P6.jpg" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <!--
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P7" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P8" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P9" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+            -->
+
+
+                
+                <!-- Gallery Item 2 - Infrastructure (Wide) -->
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INF5.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">Modern Learning Environment</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INF2.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">Modern Learning Environment</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INF3.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">Modern Learning Environment</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INF4.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">Modern Learning Environment</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INF1.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">Modern Learning Environment</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INF6.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">Modern Learning Environment</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INF7.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">Modern Learning Environment</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INF8.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">In-House Printing Facility</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                <!--
+                <div class="gallery-item filterable-item stagger-item wide" data-category="celebrations">
+                    <img src="resources/Infrastructure/INFn.jpg" alt="Infrastructure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Infrastructure</div>
+                        <h3 class="text-lg font-semibold mb-2">Modern Learning Environment</h3>
+                        <p class="text-sm">Showcasing our state-of-the-art facilities designed to enhance learning and student development.</p>
+                    </div>
+                </div>
+                -->
+
+
+
+
+
+
+                <!-- Gallery Item 3 - Sports Activities -->
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/SA1.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">South Lion Box Cricket</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK1.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2022-23</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK2.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2022-23</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK3.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2022-23</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK4.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2024-25</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK5.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2024-25</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK6.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2024-25</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK7.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2024-25</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK8.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2024-25</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK9.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2024-25</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK10.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Khel Mahakumbh 2024-25</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <!--
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/KMK11.jpg" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Student Sports & Fitness</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="classroom">
+                    <img src="resources/Sports-Activity/" alt="Smart Sports Activities" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Sports Activities</div>
+                        <h3 class="text-lg font-semibold mb-2">Student Sports & Fitness</h3>
+                        <p class="text-sm">Students engaging in various sports activities, building teamwork, discipline, and physical wellness alongside academics.</p>
+                    </div>
+                </div>
+                --> 
+
+
+                
+                <!-- Gallery Item 4 - Workshops & Seminars -->
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS1.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS2.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS3.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS4.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS5.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS7.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS8.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS9.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaS10.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">Cyber Crime & Cyber Security</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+
+                <!--
+                <div class="gallery-item filterable-item stagger-item" data-category="workshops">
+                    <img src="resources/Workshops&Seminars/WaSn.jpg" alt="Professional Workshop" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Workshops & Seminars</div>
+                        <h3 class="text-lg font-semibold mb-2">head</h3>
+                        <p class="text-sm">Focused workshops preparing students for professional CA and CMA Foundation examinations.</p>
+                    </div>
+                </div>
+                -->
+
+
+
+                <!-- Gallery Item 5 - Picnics / Trips (Tall) -->
+                 <!-- Saputara Trip Images 2023-24 -->
+                  <div class="gallery-item filterable-item stagger-item tall" data-category="guidance">
+                    <img src="resources/picnics/SP3.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Saputara</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/SP1.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Saputara</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/SP2.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Saputara</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/SP4.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Saputara</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/SP5.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Saputara</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <!-- Rushivan Trip Images 2022-23-->
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS7.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS2.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS3.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS4.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS5.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS6.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS6.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS8.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS1.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/RS9.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2">Rushivan</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <!--Jaisalmer 2025-26-->
+                
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/JM4.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips </div>
+                        <h3 class="text-lg font-semibold mb-2">Jaisalmer</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/JM2.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips </div>
+                        <h3 class="text-lg font-semibold mb-2">Jaisalmer</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/JM3.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips </div>
+                        <h3 class="text-lg font-semibold mb-2">Jaisalmer</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/JM1.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips </div>
+                        <h3 class="text-lg font-semibold mb-2">Jaisalmer</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/JM5.jpg" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips </div>
+                        <h3 class="text-lg font-semibold mb-2">Jaisalmer</h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                <!--
+                <div class="gallery-item filterable-item stagger-item" data-category="guidance">
+                    <img src="resources/picnics/" alt="Faculty Mentoring" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Picnics / Trips</div>
+                        <h3 class="text-lg font-semibold mb-2"></h3>
+                        <p class="text-sm">Students bonding through exciting outings and trips, creating unforgettable memories while building strong relationships.</p>
+                    </div>
+                </div>
+                -->
+                <!-- Gallery Item 6 - Industrial Visits -->
+                <div class="gallery-item filterable-item stagger-item" data-category="visits">
+                    <img src="resources/industrial-visits/is1.jpg" alt="Industrial Exposure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Industrial Visits</div>
+                        <h3 class="text-lg font-semibold mb-2">Real-World Commerce Exposure</h3>
+                        <p class="text-sm">Students gaining practical insights through visits to leading business establishments and corporate environments.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="visits">
+                    <img src="resources/industrial-visits/is2.jpg" alt="Industrial Exposure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Industrial Visits</div>
+                        <h3 class="text-lg font-semibold mb-2">Real-World Commerce Exposure</h3>
+                        <p class="text-sm">Students gaining practical insights through visits to leading business establishments and corporate environments.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="visits">
+                    <img src="resources/industrial-visits/is3.jpg" alt="Industrial Exposure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Industrial Visits</div>
+                        <h3 class="text-lg font-semibold mb-2">Real-World Commerce Exposure</h3>
+                        <p class="text-sm">Students gaining practical insights through visits to leading business establishments and corporate environments.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="visits">
+                    <img src="resources/industrial-visits/is4.jpg" alt="Industrial Exposure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Industrial Visits</div>
+                        <h3 class="text-lg font-semibold mb-2">Real-World Commerce Exposure</h3>
+                        <p class="text-sm">Students gaining practical insights through visits to leading business establishments and corporate environments.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="visits">
+                    <img src="resources/industrial-visits/is5.jpg" alt="Industrial Exposure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Industrial Visits</div>
+                        <h3 class="text-lg font-semibold mb-2">Real-World Commerce Exposure</h3>
+                        <p class="text-sm">Students gaining practical insights through visits to leading business establishments and corporate environments.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="visits">
+                    <img src="resources/industrial-visits/is6.jpg" alt="Industrial Exposure" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Industrial Visits</div>
+                        <h3 class="text-lg font-semibold mb-2">Real-World Commerce Exposure</h3>
+                        <p class="text-sm">Students gaining practical insights through visits to leading business establishments and corporate environments.</p>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 7 - Cultural & Institute Events -->
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA1.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Flower Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item wide" data-category="events">
+                    <img src="resources/cultural-activities/swapnilsirBday.jpeg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Birthday Celebration</h3>
+                        <p class="text-sm">Celebrating special moments and milestones with joy, bringing the community together in memorable festivities.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA2.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Traditional Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA4.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Navratri</h3>
+                        <p class="text-sm">Beyond academics, fostering confidence, communication, and presentation skills for professional success.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA16.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Navratri</h3>
+                        <p class="text-sm">Beyond academics, fostering confidence, communication, and presentation skills for professional success.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA17.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Navratri</h3>
+                        <p class="text-sm">Beyond academics, fostering confidence, communication, and presentation skills for professional success.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA18.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Navratri</h3>
+                        <p class="text-sm">Beyond academics, fostering confidence, communication, and presentation skills for professional success.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item filterable-item stagger-item tall" data-category="events">
+                    <img src="resources/cultural-activities/CA5.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Sponsors</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA6.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Navratri</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA6.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Navratri</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA7.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Black Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA8.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Black and White day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA9.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Traditional Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item tall" data-category="events">
+                    <img src="resources/cultural-activities/CA10.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Bollywood Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA11.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Bollywood Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item tall" data-category="events">
+                    <img src="resources/cultural-activities/CA12.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Bollywood Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA13.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Bollywood Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA14.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Bollywood Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item tall" data-category="events">
+                    <img src="resources/cultural-activities/CA15.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Bollywood Day</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA19.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Farewell</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA20.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Farewell</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CA21.png" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">Farewell</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+                <!--
+                <div class="gallery-item filterable-item stagger-item" data-category="events">
+                    <img src="resources/cultural-activities/CAn.jpg" alt="Institute Events" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Cultural & Institute Events</div>
+                        <h3 class="text-lg font-semibold mb-2">head</h3>
+                        <p class="text-sm">Beyond academics, students enjoy cultural celebrations, networking, and building lasting friendships in a vibrant community.</p>
+                    </div>
+                </div>
+            -->
+
+
+                
+                <!-- Gallery Item 12 - Educational Field Trips 
+                <div class="gallery-item filterable-item stagger-item" data-category="visits">
+                    <img src="resources/team-faculty-4.jpg" alt="Educational Tours" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Industrial Visits</div>
+                        <h3 class="text-lg font-semibold mb-2">Business Environment Exposure</h3>
+                        <p class="text-sm">Educational tours complementing classroom learning with real-world business operations insights.</p>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-image">
+            <div class="lightbox-close">&times;</div>
+            <div class="lightbox-nav lightbox-prev">&#8249;</div>
+            <div class="lightbox-nav lightbox-next">&#8250;</div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <section class="section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    Our <span class="text-gold">Impact</span>
+                </h2>
+                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                    Numbers that reflect our commitment to holistic education and student development.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center stagger-item">
+                    <div class="w-20 h-20 bg-navy rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <div class="text-3xl font-bold text-navy font-mono mb-2">Numerous</div>
+                    <div class="text-charcoal">Industrial Visits</div>
+                </div>
+                
+                <div class="text-center stagger-item">
+                    <div class="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-3xl font-bold text-navy font-mono mb-2">Extensive</div>
+                    <div class="text-charcoal">Workshops Conducted</div>
+                </div>
+                
+                <div class="text-center stagger-item">
+                    <div class="w-20 h-20 bg-navy rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-3xl font-bold text-navy font-mono mb-2">Widespread</div>
+                    <div class="text-charcoal">Students Benefited</div>
+                </div>
+                
+                <div class="text-center stagger-item">
+                    <div class="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-3xl font-bold text-navy font-mono mb-2">Vibrant</div>
+                    <div class="text-charcoal">Cultural Events</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section py-20 bg-navy text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">
+                Join Our <span class="text-gold">Vibrant Community</span>
+            </h2>
+            <p class="text-xl mb-8 text-gray-300">
+                Be part of an educational experience that goes beyond textbooks and classrooms. 
+                Discover your potential at KAI-VIDHYA.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="contact.html" class="bg-gold text-navy px-8 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all">
+                    Visit Us Today
+                </a>
+                <a href="about.html" class="border-2 border-gold text-gold px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gold hover:text-navy transition-all">
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer – NEW  -->
+<footer class="bg-navy text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+
+      <!-- Brand -->
+      <div class="md:col-span-2">
+        <div class="text-3xl font-display font-bold mb-4">KAI-<span class="text-gold">VIDHYA</span></div>
+        <p class="text-gray-300 mb-6 max-w-md">
+          An ocean of knowledge where conceptual strength becomes professional success.
+          Celebrating every achievement, nurturing every talent.
+        </p>
+        <div class="flex space-x-4">
+          <a href="https://instagram.com/kai__vidhya" target="_blank" aria-label="Instagram" class="text-gold hover:text-white transition-colors">
+            <!-- Instagram glyph -->
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+              <path d="M16 11.37a4 4 0 11-7.92 0 4 4 0 017.92 0zM17.5 6.5" stroke-width="2"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="index.html" class="text-gray-300 hover:text-gold transition-colors">Home</a></li>
+          <li><a href="about.html" class="text-gray-300 hover:text-gold transition-colors">About Us</a></li>
+          <li><a href="team.html" class="text-gray-300 hover:text-gold transition-colors">Our Team</a></li>
+          <li><a href="gallery.html" class="text-gray-300 hover:text-gold transition-colors">Gallery</a></li>
+          <li><a href="contact.html" class="text-gray-300 hover:text-gold transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Centres -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Our Centres</h3>
+        <ul class="space-y-2 text-sm text-gray-300">
+          <li>📍 Manjalpur – F-134, Sahjanand Flats, Opp. Saraswati Complex, Vadodara 390011</li>
+          <li>📍 Dabhoi Road – Das Plaza, Vrundavan Cross Rd., Vadodara 390019</li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+  <h3 class="text-lg font-semibold mb-4">Get in Touch</h3>
+
+  <ul class="space-y-2 text-sm text-gray-300">
+
+    <!-- Phone -->
+    <li>
+      <a href="tel:+919537337337"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>📞</span>
+        +91 9537 337 337
+      </a>
+    </li>
+
+    <!-- Email -->
+    <li>
+      <a href="mailto:info@kaividhya.com"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>✉️</span>
+        info@kaividhya.com
+      </a>
+    </li>
+
+    <!-- Instagram -->
+    <li>
+      <a href="https://instagram.com/kai__vidhya"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="flex items-center gap-2 hover:text-gold transition-colors">
+        <span>📸</span>
+        @kai__vidhya
+      </a>
+    </li>
+
+  </ul>
+</div>
+
+    </div>
+
+    <!-- Bottom line -->
+    <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400 text-sm">
+      Winning is a habit & success an outcome. | © KAI-VIDHYA. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate sections on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        
+                        // Stagger animation for child elements
+                        const staggerItems = entry.target.querySelectorAll('.stagger-item');
+                        staggerItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.add('animate-in');
+                            }, index * 100);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            const sections = document.querySelectorAll('.section');
+
+            if ('IntersectionObserver' in window) {
+                sections.forEach(section => observer.observe(section));
+            } else {
+                sections.forEach(section => section.classList.add('animate-in'));
+            }
+
+
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.filterable-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    const filterValue = this.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Lightbox functionality
+            const lightbox = document.querySelector('.lightbox');
+            const lightboxImage = document.querySelector('.lightbox-image');
+            const lightboxClose = document.querySelector('.lightbox-close');
+            const galleryImages = document.querySelectorAll('.gallery-image');
+
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', function() {
+                    lightboxImage.src = this.src;
+                    lightboxImage.alt = this.alt;
+                    lightbox.classList.add('active');
+                });
+            });
+
+            lightboxClose.addEventListener('click', function() {
+                lightbox.classList.remove('active');
+            });
+
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                }
+            });
+
+            // Mobile menu toggle
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const navMenu = document.querySelector('.nav-menu');
+
+            hamburgerMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+
+            // Navbar sticky
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('sticky');
+                } else {
+                    navbar.classList.remove('sticky');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
