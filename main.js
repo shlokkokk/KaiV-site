@@ -293,10 +293,39 @@ function initializeForms() {
             });
 
             if (isValid) {
-                // Show success message
-                showNotification('Your email app will open. Please click Send to complete.', 'success');
-                form.reset();
-            } else {
+
+                const name    = data.name || '';
+                const email   = data.email || '';
+                const phone   = data.phone || 'Not provided';
+                const course  = data.course || '';
+                const message = data.message || '';
+
+                const whatsappText =
+                    "New Enquiry – KAI-VIDHYA\n\n" +
+                    "Name: " + name + "\n" +
+                    "Email: " + email + "\n" +
+                    "Phone: " + phone + "\n" +
+                    "Course: " + course + "\n\n" +
+                    "Message:\n" + message;
+
+                const encodedText = encodeURIComponent(whatsappText);
+
+                const whatsappNumber = "9115557571";
+
+                showNotification(
+                  'Opening WhatsApp… Please tap Send to complete.',
+                  'success'
+                );
+            
+                setTimeout(() => {
+                    window.open(
+                      `https://wa.me/${whatsappNumber}?text=${encodedText}`,
+                      '_blank'
+                    );
+                    form.reset();
+                }, 800);
+            }
+            else {
                 showNotification('Please fill in all required fields correctly.', 'error');
             }
         });
