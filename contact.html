@@ -746,9 +746,24 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 </script>
-<!--  /REAL-CENTRES MAP  -->
+<script>
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
 
-</body>
-</html>
+  if (params.get('scroll') === 'contact') {
+    const target = document.getElementById('contact-form');
+    if (!target) return;
+
+    setTimeout(() => {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }, 750);
+  }
+});
+</script>
+
+
 </body>
 </html>
