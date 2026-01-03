@@ -294,7 +294,7 @@ function initializeForms() {
 
             if (isValid) {
                 // Show success message
-                showNotification('Thank you! Your message has been sent successfully.', 'success');
+                showNotification('Your email app will open. Please click Send to complete.', 'success');
                 form.reset();
             } else {
                 showNotification('Please fill in all required fields correctly.', 'error');
