@@ -24,6 +24,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -280,9 +281,73 @@ html {
             opacity: 1;
             pointer-events: auto;
         }
+
+.dark .contact-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: #334155;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.dark .contact-card h3 {
+    color: #f1f5f9;
+}
+
+.dark .contact-card p {
+    color: #94a3b8;
+}
+.dark .form-input {
+    background: #020617;
+    border-color: #334155;
+    color: #e5e7eb;
+}
+
+.dark .form-input::placeholder {
+    color: #64748b;
+}
+
+.dark .form-label {
+    color: #cbd5f5;
+}
+.dark .navbar {
+    background: #0f172a;
+}
+
+.dark .navbar.sticky {
+    background: #020617;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+/* 🌙 Dark mode – mobile nav */
+.dark .nav-menu {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.dark .nav-menu .nav-link {
+    color: #e5e7eb;
+}
+
+.dark .nav-menu .nav-link:hover {
+    color: #ffb300;
+}
+
+.dark .infrastructure-item {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: #334155;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.dark .infrastructure-item h3 {
+    color: #f1f5f9;
+}
+
+.dark .infrastructure-item p {
+    color: #94a3b8;
+}
+
     </style>
 </head>
-<body class="font-body text-charcoal bg-white">
+<body class="font-body text-charcoal bg-white dark:bg-slate-900 dark:text-gray-200">
     <!-- Navigation -->
     <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -306,6 +371,17 @@ html {
                         <a href="results.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Results</a>
                         <a href="gallery.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
                         <a href="contact.html" class="nav-link text-navy hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                        <a href="portal/login.html" class="nav-link text-white bg-navy hover:bg-gold px-4 py-2 rounded-lg transition-colors duration-300 font-medium">Student Portal</a>
+                        <button
+                          id="themeToggle"
+                          aria-label="Toggle theme"
+                          class="ml-4 text-xl p-2 rounded-full
+                                 bg-soft-blue text-navy
+                                 hover:scale-110 hover:rotate-12
+                                 dark:bg-slate-800 dark:text-gold
+                                 transition-all duration-300 shadow-md">
+                          🌙
+                        </button>
                     </div>
                 </div>
                 
@@ -321,7 +397,10 @@ html {
         </div>
         
         <!-- Mobile Navigation -->
-        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0
+            bg-white dark:bg-slate-900
+            border-t border-gray-200 dark:border-slate-700
+            transition-transform duration-300">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Home</a>
                 <a href="about.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">About Us</a>
@@ -329,6 +408,17 @@ html {
                 <a href="results.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Results</a>
                 <a href="gallery.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Gallery</a>
                 <a href="contact.html" class="nav-link block px-3 py-2 text-navy font-medium">Contact</a>
+                <a href="portal/login.html" class="nav-link block px-3 py-2 text-white bg-navy rounded-lg">Student Portal</a>
+                <button
+                  id="themeToggle"
+                  aria-label="Toggle theme"
+                  class="ml-3 mt-2 text-xl p-2 rounded-full
+                         bg-soft-blue text-navy
+                         hover:scale-110 hover:rotate-12
+                         dark:bg-slate-800 dark:text-gold
+                         transition-all duration-300 shadow-md">
+                  🌙
+                </button>
             </div>
         </div>
     </nav>
@@ -342,10 +432,10 @@ html {
         </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-navy dark:text-gray-100">
                 Get in <span class="gradient-text">Touch</span>
             </h1>
-            <p class="text-xl md:text-2xl text-charcoal max-w-4xl mx-auto leading-relaxed">
+            <p class="text-xl md:text-2xl text-charcoal dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
                 Ready to start your commerce education journey? Visit our campus, 
                 meet our team, and discover how KAI-VIDHYA can transform your future.
             </p>
@@ -353,14 +443,13 @@ html {
     </section>
 
     <!-- Contact Information Cards -->
-    <!-- CONTACT-CARDS SECTION – REPLACED WITH REAL CENTRES -->
-<section class="section py-20">
+<section class="section py-20 bg-white dark:bg-slate-900">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
       <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
         Our <span class="text-gold">Centres</span>
       </h2>
-      <p class="text-xl text-charcoal max-w-3xl mx-auto">
+      <p class="text-xl text-charcoal dark:text-gray-300 max-w-3xl mx-auto">
         Visit either of our two vibrant campuses – both easily reachable, fully air-conditioned and built for focused learning.
       </p>
     </div>
@@ -422,13 +511,13 @@ html {
 </section>
 
     <!-- Map Section -->
-    <section class="section py-20 bg-gray-50" id="map-section">
+    <section class="section py-20 bg-gray-50 dark:bg-slate-900" id="map-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
                     Find Our <span class="text-gold">Location</span>
                 </h2>
-                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                <p class="text-xl text-charcoal dark:text-gray-300 max-w-3xl mx-auto">
                     Conveniently located in the heart of Vadodara, easily accessible from all parts of the city.
                 </p>
             </div>
@@ -448,7 +537,7 @@ html {
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
                     Our <span class="text-gold">Infrastructure</span>
                 </h2>
-                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                <p class="text-xl text-charcoal dark:text-gray-300 max-w-3xl mx-auto">
                     World-class facilities designed to provide the best learning environment 
                     for our students.
                 </p>
@@ -543,40 +632,40 @@ html {
     </section>
 
     <!-- Contact Form Section -->
-    <section id="contact-form" class="section py-20 bg-gray-50">
+    <section id="contact-form" class="section py-20 bg-gray-50 dark:bg-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
                     Send us a <span class="text-gold">Message</span>
                 </h2>
-                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+                <p class="text-xl text-charcoal dark:text-gray-300 max-w-3xl mx-auto">
                     Have questions about our programs? Need more information? 
                     Fill out the form and we'll get back to you within 24 hours.
                 </p>
             </div>
             
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white p-8 rounded-2xl shadow-lg stagger-item">
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg stagger-item">
                     <form class="contact-form space-y-6">
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label for="name" class="form-label">Full Name *</label>
-                                <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+                                <input type="text" id="name" name="name" class="form-input dark:bg-slate-700 dark:text-white" placeholder="Enter your full name" required>
                             </div>
                             <div>
                                 <label for="email" class="form-label">Email Address *</label>
-                                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
+                                <input type="email" id="email" name="email" class="form-input dark:bg-slate-700 dark:text-white" placeholder="Enter your email address" required>
                             </div>
                         </div>
                         
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="Enter your phone number">
+                                <label for="phone" class="form-label">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" class="form-input dark:bg-slate-700 dark:text-white" placeholder="Enter your phone number" required>
                             </div>
                             <div>
                                 <label for="course" class="form-label">Interested Course *</label>
-                                <select id="course" name="course" class="form-input" required>
+                                <select id="course" name="course" class="form-input dark:bg-slate-700 dark:text-white" required>
                                     <option value="">Select a course</option>
                                     <option value="xi-xii-commerce">XI & XII Commerce</option>
                                     <option value="bcom">B.Com Complete Support</option>
@@ -589,7 +678,7 @@ html {
                         
                         <div>
                             <label for="message" class="form-label">Message *</label>
-                            <textarea id="message" name="message" rows="5" class="form-input" placeholder="Tell us how we can help you..." required></textarea>
+                            <textarea id="message" name="message" rows="5" class="form-input dark:bg-slate-700 dark:text-white" placeholder="Tell us how we can help you..." required></textarea>
                         </div>
                         
                         <div class="text-center">
@@ -729,7 +818,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // 2. Dabhoi-Waghodia Ring Road centre
   const dabhoi    = [22.29796174162901, 73.23783347301142];
 
-  const map = L.map('map').setView(manjalpur, 14);   // start centred on Manjalpur
+  const map = L.map('map');
+  const bounds = L.latLngBounds([
+    manjalpur,
+    dabhoi
+  ]);
+  
+  map.fitBounds(bounds, {
+    padding: [80, 80]
+  });
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'

@@ -21,24 +21,26 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'navy': '#1a237e',
-                        'gold': '#ffb300',
-                        'soft-blue': '#e3f2fd',
-                        'charcoal': '#37474f'
-                    },
-                    fontFamily: {
-                        'display': ['Playfair Display', 'serif'],
-                        'body': ['Inter', 'sans-serif'],
-                        'mono': ['Source Code Pro', 'monospace']
-                    }
-                }
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'navy': '#1a237e',
+              'gold': '#ffb300',
+              'soft-blue': '#e3f2fd',
+              'charcoal': '#37474f'
+            },
+            fontFamily: {
+              'display': ['Playfair Display', 'serif'],
+              'body': ['Inter', 'sans-serif'],
+              'mono': ['Source Code Pro', 'monospace']
             }
+          }
         }
+      }
     </script>
+
     
     <style>
         ::-webkit-scrollbar {
@@ -295,6 +297,10 @@
             border-radius: 1rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
+        .dark .year-section {
+           background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
 
         .year-title {
             font-size: 2.5rem;
@@ -345,10 +351,53 @@
             opacity: 1;
             pointer-events: auto;
         }
+.navbar {
+  background: #ffffff;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.sticky {
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.dark .navbar {
+  background: #0f172a;
+}
+
+.dark .navbar.sticky {
+  background: #0f172a;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.dark .navbar .nav-link {
+  color: #e5e7eb;
+}
+
+.dark .navbar .nav-link:hover {
+  color: #ffb300;
+}
+.dark .counter-box {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.dark .counter-number {
+  color: #ffb300;
+}
+
+.dark .counter-box .text-lg {
+  color: #e5e7eb;
+}
+
+.dark .counter-box .text-sm {
+  color: #94a3b8;
+}
+
     </style>
 <base target="_blank">
 </head>
-<body class="font-body text-charcoal bg-white">
+<body class="font-body text-charcoal bg-white dark:bg-slate-900 dark:text-gray-200">
     <!-- Navigation -->
     <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -373,6 +422,18 @@
                         <a href="results.html" class="nav-link text-navy hover:text-gold transition-colors duration-300 font-medium">Results</a>
                         <a href="gallery.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
                         <a href="contact.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                        <a href="portal/login.html" class="nav-link text-white bg-navy hover:bg-gold px-4 py-2 rounded-lg transition-colors duration-300 font-medium">Student Portal</a>
+                        <button
+                          id="themeToggle"
+                          aria-label="Toggle theme"
+                          class="ml-4 text-xl p-2 rounded-full
+                                 bg-soft-blue text-navy
+                                 hover:scale-110 hover:rotate-12
+                                 dark:bg-slate-800 dark:text-gold
+                                 transition-all duration-300 shadow-md">
+                          🌙
+                        </button>
+
                     </div>
                 </div>
                 
@@ -388,7 +449,11 @@
         </div>
         
         <!-- Mobile Navigation -->
-        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0
+             bg-white dark:bg-slate-900
+             border-t border-gray-200 dark:border-slate-700
+             transition-transform duration-300">
+
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Home</a>
                 <a href="about.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">About Us</a>
@@ -396,6 +461,17 @@
                 <a href="results.html" class="nav-link block px-3 py-2 text-navy font-medium">Results</a>
                 <a href="gallery.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Gallery</a>
                 <a href="contact.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Contact</a>
+                <a href="portal/login.html" class="nav-link block px-3 py-2 text-white bg-navy rounded-lg">Student Portal</a>
+                <button
+                          id="themeToggle"
+                          aria-label="Toggle theme"
+                          class="ml-4 text-xl p-2 rounded-full
+                                 bg-soft-blue text-navy
+                                 hover:scale-110 hover:rotate-12
+                                 dark:bg-slate-800 dark:text-gold
+                                 transition-all duration-300 shadow-md">
+                          🌙
+                        </button>
             </div>
         </div>
     </nav>
@@ -409,10 +485,12 @@
         </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-navy dark:text-gray-100">
+
                 Our <span class="gradient-text">Achievements</span>
             </h1>
-            <p class="text-xl md:text-2xl text-charcoal max-w-4xl mx-auto leading-relaxed">
+            <p class="text-xl md:text-2xl text-charcoal dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+
                 Celebrating excellence in commerce education through outstanding results, 
                 academic achievements, and student success stories from 2018-2025.
             </p>
@@ -479,10 +557,12 @@
             
             <!-- Performance Chart -->
             <div class="relative p-10 rounded-3xl stagger-item
-            bg-white/80 backdrop-blur-xl
-            border border-navy/10
-            shadow-[0_20px_50px_rgba(26,35,126,0.15)]">
-                <h3 class="text-2xl font-display font-bold text-navy mb-6 text-center">
+                bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl
+                order border-navy/10 dark:border-slate-700
+                shadow-[0_20px_50px_rgba(26,35,126,0.15)]">
+
+                <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-6 text-center">
+
                     Performance Trends Over Years
                 </h3>
                 <div id="performance-chart" class="chart-container"></div>
@@ -491,33 +571,45 @@
     </section>
 
     <!-- Year-wise Results Section -->
-    <section class="section py-20 bg-gray-50">
+    <section class="section py-20 bg-gray-50 dark:bg-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
-                    Year-wise <span class="text-gold">Results</span>
-                </h2>
-                <p class="text-xl text-charcoal max-w-3xl mx-auto">
-                    A comprehensive look at our academic achievements from 2018 to 2025.
-                </p>
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy dark:text-gray-100 mb-4">
+    Year-wise <span class="text-gold">Results</span>
+</h2>
+
+<div class="h-1 w-24 mx-auto bg-gold rounded-full mb-6"></div>
+
+<p class="text-lg text-navy/80 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+    A comprehensive look at our academic achievements from 2018 to 2025.
+</p>
+
             </div>
 
             <div class="content-wrapper">
                 <!-- 2018-2019 Results -->
                 <div class="year-section section-block">
                     <div class="stagger-item">
-                        <h3 class="year-title text-gold">2018-2019: Foundation of Success</h3>
-                        <p class="year-subtitle">Swapnil Shah's SHREEJI SWAPN - First Rank Holders</p>
+                        <h3 class="year-title text-navy dark:text-gray-100">
+    <span class="text-gold">2018–2019</span>: Foundation of Success
+</h3>
+
+                        <p class="year-subtitle text-navy/75 dark:text-gray-300">
+    Swapnil Shah’s <span class="font-semibold text-navy dark:text-gray-100">
+        SHREEJI SWAPN
+    </span> – First Rank Holders
+</p>
+
                         
                         <div class="grid md:grid-cols-2 gap-6">
-                            <div class="result-card p-6">
+                            <div class="result-card p-6 bg-white dark:bg-slate-800">
                                 <div class="flex items-center mb-4">
                                     <div class="w-16 h-16 rounded-full bg-gold flex items-center justify-center text-navy font-bold text-2xl font-display mr-4">
                                         <img src="/resources/shailja.png" alt="Shailja" class="w-full h-full rounded-full object-cover">
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-navy text-xl">Shailja</h4>
-                                        <p class="text-sm text-charcoal">Ambe School</p>
+                                        <h4 class="font-bold text-navy dark:text-gray-100 text-xl">Shailja</h4>
+                                        <p class="text-sm text-charcoal dark:text-gray-400">Ambe School</p>
                                     </div>
                                 </div>
                                 <div class="achievement-badge mb-3">First Rank Holder</div>
@@ -541,14 +633,14 @@
                                 </div>
                             </div>
 
-                            <div class="result-card p-6">
+                            <div class="result-card p-6 bg-white dark:bg-slate-800">
                                 <div class="flex items-center mb-4">
                                     <div class="w-16 h-16 rounded-full bg-gold flex items-center justify-center text-navy font-bold text-2xl font-display mr-4">
                                         <img src="/resources/mohit.png" alt="Mohit" class="w-full h-full rounded-full object-cover">
                                     </div>
                                     <div>
-                                        <h4 class="font-bold text-navy text-xl">Mohit</h4>
-                                        <p class="text-sm text-charcoal">Solver Oak</p>
+                                        <h4 class="font-bold text-navy dark:text-gray-100 text-xl">Mohit</h4>
+                                        <p class="text-sm text-charcoal dark:text-gray-400">Silver Oak</p>
                                     </div>
                                 </div>
                                 <div class="achievement-badge mb-3">First Rank Holder</div>
@@ -605,7 +697,7 @@
                 <div class="year-section section-block">
                     <div class="stagger-item">
                         <h3 class="year-title text-gold">2019-2020: Expanding Excellence</h3>
-                        <p class="year-subtitle">School Toppers & MSU B.Com Achievements</p>
+                        <p class="year-subtitle text-navy/80 dark:text-gray-300">School Toppers & MSU B.Com Achievements</p>
                         
                         <div class="grid md:grid-cols-2 gap-8">
                             <div>
@@ -711,7 +803,7 @@
                 <div class="year-section section-block">
                     <div class="stagger-item">
                         <h3 class="year-title text-gold">2022-2023: The New Era Begins</h3>
-                        <p class="year-subtitle">Inception of KAI-V - First Rankers in Respective Schools</p>
+                        <p class="year-subtitle text-navy/80 dark:text-gray-300">Inception of KAI-V - First Rankers in Respective Schools</p>
                         
                         <!-- School Toppers Group Photo -->
                         <div class="mb-12">
@@ -794,7 +886,7 @@
                 <div class="year-section section-block">
                     <div class=" mb-16">
                         <h3 class="year-title text-gold">Result: 2023 - 24</h3>
-                        <p class="year-subtitle">
+                        <p class="year-subtitle text-navy/80 dark:text-gray-300">
                             11th & 12th Commerce (GSEB & CBSE - Major Subjects) and B.Com.
                         </p>
                     </div>
@@ -820,7 +912,7 @@
                                     <img src="/resources/lisha.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Lisha</h5>
-                                    <p class="text-sm text-charcoal">Urmi School</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">Urmi School</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -838,7 +930,7 @@
                                     <img src="/resources/richie.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Richie</h5>
-                                    <p class="text-sm text-charcoal">PARG School</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">PARG School</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -856,7 +948,7 @@
                                     <img src="/resources/kush.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Kush</h5>
-                                    <p class="text-sm text-charcoal">PARG School</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">PARG School</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -874,7 +966,7 @@
                                     <img src="/resources/falak.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Falak</h5>
-                                    <p class="text-sm text-charcoal">Ambe School</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">Ambe School</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -892,7 +984,7 @@
                                     <img src="/resources/jahnavi.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Jahnavi</h5>
-                                    <p class="text-sm text-charcoal">Don Bosco School</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">Don Bosco School</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -910,7 +1002,7 @@
                                     <img src="/resources/dolly.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Dolly</h5>
-                                    <p class="text-sm text-charcoal">LFS School</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">LFS School</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -928,7 +1020,7 @@
                                     <img src="/resources/harshit.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Harshit</h5>
-                                    <p class="text-sm text-charcoal">PARG School</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">PARG School</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -946,7 +1038,7 @@
                                     <img src="/resources/varuna.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Varuna</h5>
-                                    <p class="text-sm text-charcoal">Atmiya Vidyalay</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">Atmiya Vidyalay</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -964,7 +1056,7 @@
                                     <img src="/resources/harsh90.png" loading="lazy"
                                          class="w-28 h-36 object-cover rounded-xl shadow-md mb-3">
                                     <h5 class="text-2xl font-display font-bold text-navy">Harsh</h5>
-                                    <p class="text-sm text-charcoal">Ambe School</p>
+                                    <p class="text-sm text-charcoal dark:text-gray-400">Ambe School</p>
                                 </div>
                             
                                 <p class="text-charcoal italic leading-relaxed text-center">
@@ -986,9 +1078,12 @@
                     <!-- 90+ Scorers -->
                     <div class="mt-16">
                     
-                        <h4 class="text-3xl font-display font-bold text-navy text-center mb-12">
-                            90 and Above Marks in Core Subjects
-                        </h4>
+                        <h4 class="text-3xl font-display font-bold text-navy dark:text-gray-100 text-center mb-4">
+    90 and Above Marks in Core Subjects
+</h4>
+
+<div class="h-1 w-20 mx-auto bg-gold rounded-full mb-12"></div>
+
                     
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
                         
@@ -1112,8 +1207,11 @@
                 <!-- 2024-2025 Results -->
                 <div class="year-section section-block">
                     <div class="stagger-item">
-                        <h3 class="year-title text-gold">2024-2025: Excellence Redefined</h3>
-                        <p class="year-subtitle">CBSE & GSEB Champions - Maximum Score Achievement</p>
+                        <h3 class="year-title text-navy dark:text-gray-100">
+    <span class="text-gold">2024–2025</span>: Excellence Redefined
+</h3>
+
+                        <p class="year-subtitle text-navy/80 dark:text-gray-300">CBSE & GSEB Champions - Maximum Score Achievement</p>
                         
                         <div class="grid md:grid-cols-[1fr_32px_1fr] gap-8 mb-8 items-start">
                             <!-- CBSE Results -->
@@ -1695,96 +1793,106 @@
             if (chartDom) {
                 const myChart = echarts.init(chartDom);
                 window.performanceChart = myChart;
-                
+                const isDark = document.documentElement.classList.contains('dark');
                 const option = {
-    backgroundColor: 'transparent',
+  backgroundColor: 'transparent',
 
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'shadow'
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: { type: 'line' }
+  },
+
+  legend: {
+    top: 10,
+    right: 20,
+    textStyle: {
+      fontSize: 14,
+      fontFamily: 'Inter',
+      color: isDark ? '#e5e7eb' : '#37474f'
+    }
+  },
+
+  grid: {
+    left: '5%',
+    right: '5%',
+    bottom: '8%',
+    top: '18%',
+    containLabel: true
+  },
+
+  xAxis: {
+    type: 'category',
+    data: ['2018-19', '2019-20', '2020-22', '2022-23', '2023-24', '2024-25'],
+    axisLine: {
+      lineStyle: {
+        color: isDark ? '#475569' : '#cfd8dc'
+      }
+    },
+    axisTick: { show: false },
+    axisLabel: {
+      fontSize: 13,
+      fontFamily: 'Inter',
+      color: isDark ? '#cbd5f5' : '#37474f'
+    }
+  },
+
+  yAxis: {
+    type: 'value',
+    name: 'Success Rate (%)',
+    nameTextStyle: {
+      fontSize: 14,
+      fontFamily: 'Inter',
+      color: isDark ? '#93c5fd' : '#1a237e'
+    },
+    splitLine: {
+      lineStyle: {
+        color: isDark ? 'rgba(148,163,184,0.25)' : '#e3f2fd'
+      }
+    },
+    axisLabel: {
+      color: isDark ? '#cbd5f5' : '#37474f'
+    }
+  },
+
+  series: [
+    {
+      name: 'Success Rate %',
+      type: 'line',
+      smooth: true,
+      data: [94, 95, 100, 95, 94, 95],
+      symbolSize: 9,
+
+      lineStyle: {
+        width: 4,
+        color: isDark ? '#60a5fa' : '#1a237e'
+      },
+
+      itemStyle: {
+        color: isDark ? '#93c5fd' : '#1a237e'
+      },
+
+      areaStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: isDark
+            ? [
+                { offset: 0, color: 'rgba(59,130,246,0.45)' },
+                { offset: 1, color: 'rgba(59,130,246,0.05)' }
+              ]
+            : [
+                { offset: 0, color: 'rgba(26,35,126,0.35)' },
+                { offset: 1, color: 'rgba(26,35,126,0.05)' }
+              ]
         }
-    },
-
-    legend: {
-        top: 10,
-        right: 20,
-        textStyle: {
-            fontSize: 14,
-            fontFamily: 'Inter',
-            color: '#37474f'
-        }
-    },
-
-    grid: {
-        left: '5%',
-        right: '5%',
-        bottom: '8%',
-        top: '18%',
-        containLabel: true
-    },
-
-    xAxis: {
-        type: 'category',
-        data: ['2018-19', '2019-20', '2020-22', '2022-23', '2023-24', '2024-25'],
-        axisLine: { lineStyle: { color: '#cfd8dc' } },
-        axisTick: { show: false },
-        axisLabel: {
-            fontSize: 13,
-            fontFamily: 'Inter',
-            color: '#37474f'
-        }
-    },
-
-    yAxis: [
-        {
-            type: 'value',
-            name: 'Success Rate (%)',
-            nameTextStyle: {
-                fontSize: 14,
-                fontFamily: 'Inter',
-                color: '#1a237e'
-            },
-            splitLine: {
-                lineStyle: {
-                    color: '#e3f2fd'
-                }
-            }
-        },
-        
-    ],
-
-    series: [
-        {
-            name: 'Success Rate %',
-            type: 'line',
-            smooth: true,
-            data: [94, 95, 100, 95, 94,95],
-            symbolSize: 8,
-            lineStyle: {
-                width: 4,
-                color: '#1a237e'
-            },
-            itemStyle: {
-                color: '#1a237e'
-            },
-            areaStyle: {
-                color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 0,
-                    y2: 1,
-                    colorStops: [
-                        { offset: 0, color: 'rgba(26,35,126,0.35)' },
-                        { offset: 1, color: 'rgba(26,35,126,0.05)' }
-                    ]
-                }
-            }
-        },
-        
-    ]
+      }
+    }
+  ]
 };
+
 
                 
                 myChart.setOption(option);

@@ -22,8 +22,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
+
                     colors: {
                         'navy': '#1a237e',
                         'gold': '#ffb300',
@@ -101,7 +103,27 @@
         background: rgba(255, 255, 255, 0.95);
         box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     }
+    .navbar {
+      background: #ffffff;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
     
+    .dark .navbar {
+      background: #0f172a;
+    }
+    
+    .dark .navbar.sticky {
+      background: #0f172a;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    }
+    
+    .dark .navbar .nav-link {
+      color: #e5e7eb;
+    }
+    
+    .dark .navbar .nav-link:hover {
+      color: #ffb300;
+    }
     .gallery-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -158,7 +180,16 @@
     .gallery-item:hover .gallery-overlay {
         transform: translateY(0);
     }
-    
+   
+    .dark .gallery-item {
+        background: #020617; /* slate-950 */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .dark .gallery-item:hover {
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+    }
+
     .filter-btn {
         background: white;
         border: 2px solid #e3f2fd;
@@ -336,9 +367,37 @@
             opacity: 1;
             pointer-events: auto;
         }
-    </style>
+.dark .filter-btn {
+    background: #0f172a;       /* slate-900 */
+    border-color: #334155;     /* slate-700 */
+    color: #e5e7eb;            /* gray-200 */
+}
+
+.dark .filter-btn:hover {
+    background: #1a237e;       /* navy */
+    border-color: #1a237e;
+    color: white;
+}
+
+.dark .filter-btn.active {
+    background: #1a237e;
+    border-color: #1a237e;
+    color: white;
+}
+
+.lightbox-content {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.75rem;
+}
+
+.dark .lightbox-content {
+    background: #020617; /* slate-950 */
+}
+
+</style>
 </head>
-<body class="font-body text-charcoal bg-white">
+<body class="font-body text-charcoal bg-white dark:bg-slate-900 dark:text-gray-200">
     
     <!-- Navigation -->
     <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
@@ -364,6 +423,17 @@
                         <a href="results.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Results</a>
                         <a href="gallery.html" class="nav-link text-navy hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
                         <a href="contact.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                        <a href="portal/login.html" class="nav-link text-white bg-navy hover:bg-gold px-4 py-2 rounded-lg transition-colors duration-300 font-medium">Student Portal</a>
+                        <button
+                          id="themeToggle"
+                          aria-label="Toggle theme"
+                          class="ml-4 text-xl p-2 rounded-full
+                                 bg-soft-blue text-navy
+                                 hover:scale-110 hover:rotate-12
+                                 dark:bg-slate-800 dark:text-gold
+                                 transition-all duration-300 shadow-md">
+                          🌙
+                        </button>
                     </div>
                 </div>
                 
@@ -379,7 +449,11 @@
         </div>
         
         <!-- Mobile Navigation -->
-        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0
+            bg-white dark:bg-slate-900
+            border-t border-gray-200 dark:border-slate-700
+            transition-transform duration-300">
+
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Home</a>
                 <a href="about.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">About Us</a>
@@ -387,6 +461,17 @@
                 <a href="results.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Results</a>
                 <a href="gallery.html" class="nav-link block px-3 py-2 text-navy font-medium">Gallery</a>
                 <a href="contact.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Contact</a>
+                <a href="portal/login.html" class="nav-link block px-3 py-2 text-white bg-navy rounded-lg">Student Portal</a>
+                <button
+                  id="themeToggle"
+                  aria-label="Toggle theme"
+                  class="ml-4 text-xl p-2 rounded-full
+                         bg-soft-blue text-navy
+                         hover:scale-110 hover:rotate-12
+                         dark:bg-slate-800 dark:text-gold
+                         transition-all duration-300 shadow-md">
+                  🌙
+                </button>           
             </div>
         </div>
     </nav>
@@ -411,7 +496,7 @@
     </section>
 
     <!-- Filter Section -->
-    <section class="section py-12 bg-gray-50">
+    <section class="section py-12 bg-gray-50 dark:bg-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <div class="flex flex-wrap justify-center gap-4">
@@ -484,23 +569,23 @@
                         <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
                     </div>
                 </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P7.jpg" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
+                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
+                    <img src="resources/Presentations/P8.jpg" alt="Student Presentations" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <div class="category-badge">Student Presentations</div>
+                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
+                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
+                    </div>
+                </div>
                 <!--
-                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
-                    <img src="resources/Presentations/P7" alt="Student Presentations" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <div class="category-badge">Student Presentations</div>
-                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
-                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
-                    </div>
-                </div>
-                <div class="gallery-item filterable-item stagger-item" data-category="presentations">
-                    <img src="resources/Presentations/P8" alt="Student Presentations" class="gallery-image">
-                    <div class="gallery-overlay">
-                        <div class="category-badge">Student Presentations</div>
-                        <h3 class="text-lg font-semibold mb-2">Commerce Research Presentations</h3>
-                        <p class="text-sm">Students demonstrating analytical skills and conceptual understanding through engaging commerce presentations.</p>
-                    </div>
-                </div>
                 <div class="gallery-item filterable-item stagger-item" data-category="presentations">
                     <img src="resources/Presentations/P9" alt="Student Presentations" class="gallery-image">
                     <div class="gallery-overlay">
@@ -605,9 +690,6 @@
                     </div>
                 </div>
                 -->
-
-
-
 
 
 
@@ -1251,13 +1333,13 @@
     </div>
 
     <!-- Statistics Section -->
-    <section class="section py-20 bg-gray-50">
+    <section class="section py-20 bg-gray-50 dark:bg-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
                     Our <span class="text-gold">Impact</span>
                 </h2>
-                <p class="text-xl text-charcoal max-w-3xl mx-auto">
+               <p class="text-xl text-charcoal dark:text-gray-300 max-w-3xl mx-auto">
                     Numbers that reflect our commitment to holistic education and student development.
                 </p>
             </div>
@@ -1270,7 +1352,7 @@
                         </svg>
                     </div>
                     <div class="text-3xl font-bold text-navy font-mono mb-2">Numerous</div>
-                    <div class="text-charcoal">Industrial Visits</div>
+                    <div class="text-charcoal dark:text-gray-300">Industrial Visits</div>
                 </div>
                 
                 <div class="text-center stagger-item">
@@ -1280,7 +1362,7 @@
                         </svg>
                     </div>
                     <div class="text-3xl font-bold text-navy font-mono mb-2">Extensive</div>
-                    <div class="text-charcoal">Workshops Conducted</div>
+                    <div class="text-charcoal dark:text-gray-300">Workshops Conducted</div>
                 </div>
                 
                 <div class="text-center stagger-item">
@@ -1290,7 +1372,7 @@
                         </svg>
                     </div>
                     <div class="text-3xl font-bold text-navy font-mono mb-2">Widespread</div>
-                    <div class="text-charcoal">Students Benefited</div>
+                    <div class="text-charcoal dark:text-gray-300">Students Benefited</div>
                 </div>
                 
                 <div class="text-center stagger-item">
@@ -1300,7 +1382,7 @@
                         </svg>
                     </div>
                     <div class="text-3xl font-bold text-navy font-mono mb-2">Vibrant</div>
-                    <div class="text-charcoal">Cultural Events</div>
+                    <div class="text-charcoal dark:text-gray-300">Cultural Events</div>
                 </div>
             </div>
         </div>
@@ -1328,7 +1410,7 @@
     </section>
 
     <!-- Footer – NEW  -->
-<footer class="bg-navy text-white py-12">
+<div class="text-charcoal dark:text-gray-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid md:grid-cols-4 gap-8">
 
@@ -1520,5 +1602,6 @@
             });
         });
     </script>
+    <script src="main.js"></script>
 </body>
 </html>

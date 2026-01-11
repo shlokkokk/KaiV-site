@@ -1,13 +1,67 @@
-// KAI-VIDHYA Website Main JavaScript
-// Premium Educational Institute Website
-
 // Global variables
 let particleSystem;
 let mainAnimationsInitialized = false; // Renamed to avoid conflicts
 let chartInitialized = false; // Flag for chart initialization
 
+const THEME_KEY = 'kai-theme';
+
+function isDarkMode() {
+    return document.documentElement.classList.contains('dark');
+}
+
+function getCurrentTheme() {
+    return localStorage.getItem(THEME_KEY) || 'light';
+}
+
+function setTheme(theme, withAnimation = true) {
+    const root = document.documentElement;
+
+    if (withAnimation) {
+        root.classList.add('theme-transition');
+    }
+
+    if (theme === 'dark') {
+        root.classList.add('dark');
+    } else {
+        root.classList.remove('dark');
+    }
+
+    localStorage.setItem(THEME_KEY, theme);
+
+    if (withAnimation) {
+        setTimeout(() => {
+            root.classList.remove('theme-transition');
+        }, 600);
+    }
+}
+
+function toggleTheme() {
+    const current = getCurrentTheme();
+    const next = current === 'dark' ? 'light' : 'dark';
+    setTheme(next, true);
+
+    if (window.p5Instance && window.p5Instance.redraw) {
+        window.p5Instance.redraw();
+    }
+}
+
+
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    setTheme(getCurrentTheme(), false);
+    // Theme toggle button
+    const themeToggleBtn = document.getElementById('themeToggle');
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            toggleTheme();
+
+            // Optional: change icon
+            const currentTheme = getCurrentTheme();
+            themeToggleBtn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+        });
+    }
     initializeNavigation();
     initializeMainAnimations(); // Renamed function
     initializeCarousels();
@@ -475,6 +529,10 @@ function initializeParticles() {
         p.setup = function() {
             const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
             canvas.parent('particle-background');
+                    
+            p.pixelDensity(Math.min(window.devicePixelRatio, 1.5));
+            canvas.elt.getContext('2d', { willReadFrequently: true });
+
             
             // Create floating particles
             for (let i = 0; i < numParticles; i++) {
@@ -485,7 +543,7 @@ function initializeParticles() {
                     vy: p.random(-0.3, 0.3),
                     size: p.random(1, 4),
                     opacity: p.random(0.05, 0.15),
-                    color: p.random(['navy', 'gold', 'soft-blue'])
+                    type: p.random(['primary', 'accent', 'soft'])
                 });
             }
             for (let i = 0; i < 16; i++) {
@@ -499,19 +557,6 @@ function initializeParticles() {
                     type: p.random() > 0.5 ? 'pencil' : 'ruler'
                 });
             }
-
-            
-            // Create animated waves
-           // for (let i = 0; i < numWaves; i++) {
-           //     waves.push({
-           //         x: p.random(p.width),
-           //         y: p.random(p.height),
-           //         amplitude: p.random(20, 60),
-           //         frequency: p.random(0.01, 0.03),
-           //         phase: p.random(p.TWO_PI),
-           //         speed: p.random(0.5, 1.5)
-           //     });
-           // }
             
             // Create knowledge nodes (representing concepts)
             for (let i = 0; i < numNodes; i++) {
@@ -543,20 +588,6 @@ function initializeParticles() {
             p.clear();
             const time = p.millis() * 0.001;
             
-            /*// Draw animated background waves
-            waves.forEach((wave, index) => {
-                p.noFill();
-                p.stroke(26, 35, 126, 30);
-                p.strokeWeight(1);
-                
-                p.beginShape();
-                for (let x = 0; x < p.width; x += 10) {
-                    const y = wave.y + p.sin(x * wave.frequency + time * wave.speed + wave.phase) * wave.amplitude;
-                    p.vertex(x, y);
-                }
-                p.endShape();
-            }); */
-            
             // Draw knowledge nodes with pulsing effect
             knowledgeNodes.forEach(node => {
                 node.pulse += node.pulseSpeed;
@@ -575,21 +606,6 @@ function initializeParticles() {
                 p.noTint();
                 p.pop();
                 
-                /* // Node glow effect
-                p.fill(255, 179, 0, 50);
-                p.noStroke();
-                p.ellipse(node.x, node.y, pulseSize * 2);
-                
-                // Main node
-                p.fill(26, 35, 126, 200);
-                p.stroke(255, 179, 0, 150);
-                p.strokeWeight(2);
-                p.ellipse(node.x, node.y, pulseSize);
-                
-                // Inner dot
-                p.fill(255, 179, 0);
-                p.noStroke();
-                p.ellipse(node.x, node.y, pulseSize * 0.3); */
             }); 
             
             
@@ -606,12 +622,22 @@ function initializeParticles() {
                 if (particle.y > p.height) particle.y = 0;
                 
                 // Set color based on type
-                if (particle.color === 'navy') {
-                    p.fill(26, 35, 126, particle.opacity * 255);
-                } else if (particle.color === 'gold') {
-                    p.fill(255, 179, 0, particle.opacity * 255);
-                } else {
-                    p.fill(227, 242, 253, particle.opacity * 255);
+                const dark = isDarkMode();
+
+                if (particle.type === 'primary') {
+                    dark
+                        ? p.fill(255, 179, 0, particle.opacity * 255)   // gold in dark
+                        : p.fill(26, 35, 126, particle.opacity * 255); // navy in light
+                }
+                else if (particle.type === 'accent') {
+                    dark
+                        ? p.fill(255, 200, 80, particle.opacity * 200)
+                        : p.fill(40, 60, 160, particle.opacity * 200);
+                }
+                else {
+                    dark
+                        ? p.fill(255, 255, 255, particle.opacity * 80)
+                        : p.fill(227, 242, 253, particle.opacity * 120);
                 }
                 
                 p.noStroke();
@@ -637,8 +663,8 @@ function initializeParticles() {
             rulerImg,
             -item.size,
             -item.size / 4,
-            item.size * 2.2,   // 👈 elongated width
-            item.size * 0.5    // 👈 thinner height
+            item.size * 2.2,   // elongated width
+            item.size * 0.5    // thinner height
         );
     } else {
         p.tint(255, 90);
@@ -664,27 +690,6 @@ function initializeParticles() {
                     p.line(node.x, node.y, connection.node.x, connection.node.y);
                 });
             });
-
-            // Draw knowledge flow lines
-           /* for (let i = 0; i < 3; i++) {
-                const x1 = p.width * 0.1 + i * p.width * 0.3;
-                const y1 = p.height * 0.2 + p.sin(time + i) * 50;
-                const x2 = x1 + 100;
-                const y2 = y1 + p.sin(time + i + 1) * 30;
-                
-                p.stroke(255, 179, 0, 100);
-                p.strokeWeight(2);
-                p.line(x1, y1, x2, y2);
-                
-                // Arrow head
-                const angle = p.atan2(y2 - y1, x2 - x1);
-                p.push();
-                p.translate(x2, y2);
-                p.rotate(angle);
-                p.line(0, 0, -10, -5);
-                p.line(0, 0, -10, 5);
-                p.pop();
-            } */
         };
 
         p.windowResized = function() {
@@ -692,7 +697,7 @@ function initializeParticles() {
         };
     };
 
-    new p5(sketch);
+    window.p5Instance = new p5(sketch);
 }
 
 // Utility functions

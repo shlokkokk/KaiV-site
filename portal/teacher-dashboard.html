@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - KAI-VIDHYA Portal</title>
+    <meta name="description" content="Manage study materials, upload content, and track student progress at KAI-VIDHYA Teacher Portal.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+    <link rel="icon" type="image/png" href="/resources/logo.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1a237e',
+                        'gold': '#ffb300',
+                        'soft-blue': '#e3f2fd',
+                        'charcoal': '#37474f'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['Source Code Pro', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles matching main website */
+        .dashboard-bg {
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.03) 0%, rgba(227, 242, 253, 0.05) 100%);
+            min-height: 100vh;
+        }
+        
+        .dark .dashboard-bg {
+            background: radial-gradient(
+                circle at top,
+                rgba(255, 179, 0, 0.05),
+                rgba(15, 23, 42, 1) 60%
+            );
+        }
+        
+        .sidebar {
+            background: white;
+            border-right: 1px solid rgba(26, 35, 126, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .sidebar {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-right-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 0.875rem 1.5rem;
+            margin: 0.25rem 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            color: #37474f;
+        }
+        
+        .dark .nav-item {
+            color: #e5e7eb;
+        }
+        
+        .nav-item:hover {
+            background: rgba(26, 35, 126, 0.1);
+            color: #1a237e;
+        }
+        
+        .dark .nav-item:hover {
+            background: rgba(255, 179, 0, 0.2);
+            color: #ffb300;
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 35, 126, 0.3);
+        }
+        
+        .dark .nav-item.active {
+            background: linear-gradient(135deg, #ffb300 0%, #ffc107 100%);
+            color: #1a237e;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(26, 35, 126, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(26, 35, 126, 0.15);
+        }
+        
+        .dark .content-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 35, 126, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #ffb300 0%, #ffc107 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 179, 0, 0.3);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #1a237e 0%, #ffb300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        .upload-area {
+            border: 2px dashed #1a237e;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8fafc 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: #ffb300;
+            background: linear-gradient(135deg, #fff8e1 0%, #f8fafc 100%);
+        }
+        
+        .dark .upload-area {
+            border-color: rgba(255, 179, 0, 0.5);
+            background: rgba(30, 41, 59, 0.5);
+        }
+        
+        .dark .upload-area:hover {
+            border-color: #ffb300;
+            background: rgba(255, 179, 0, 0.1);
+        }
+        
+        .student-row {
+            transition: all 0.3s ease;
+        }
+        
+        .student-row:hover {
+            background: rgba(26, 35, 126, 0.05);
+        }
+        
+        .dark .student-row:hover {
+            background: rgba(255, 179, 0, 0.1);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .dark .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                z-index: 50;
+                width: 280px;
+            }
+        }
+    </style>
+</head>
+<body class="font-body text-charcoal bg-white dark:bg-slate-900 dark:text-gray-200">
+    
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar fixed left-0 top-0 h-full w-64 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center space-x-3">
+                <img src="/resources/logo.png" alt="KAI-VIDHYA" class="h-8 w-auto">
+                <div>
+                    <div class="font-display font-bold text-lg text-navy dark:text-gray-100">KAI-VIDHYA</div>
+                    <div class="text-xs text-charcoal dark:text-gray-400">Teacher Portal</div>
+                </div>
+            </div>
+        </div>
+        
+        <nav class="p-4">
+            <div class="space-y-1">
+                <div class="nav-item active" data-section="dashboard">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    Dashboard
+                </div>
+                
+                <div class="nav-item" data-section="materials">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    </svg>
+                    Upload Materials
+                </div>
+                
+                <div class="nav-item" data-section="students">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                    Student Progress
+                </div>
+                
+                <div class="nav-item" data-section="assignments">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    Assignments
+                        <span class="notification-badge">5</span>
+                    
+                </div>
+                
+                <div class="nav-item" data-section="tests">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Create Tests
+                </div>
+                
+                <div class="nav-item" data-section="analytics">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                    Analytics
+                </div>
+            </div>
+        </nav>
+        
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-700">
+            <div class="nav-item" id="logoutBtn">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Logout
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="lg:ml-64 min-h-screen">
+        <!-- Header -->
+        <header class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-30">
+            <div class="flex items-center justify-between p-4">
+                <div class="flex items-center">
+                    <button id="mobileMenuBtn" class="lg:hidden mr-4 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                    
+                    <div>
+                        <h1 class="text-xl font-display font-bold text-navy dark:text-gray-100" id="pageTitle">Teacher Dashboard</h1>
+                        <p class="text-sm text-charcoal dark:text-gray-400">Manage your classes and materials</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="relative p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"></path>
+                        </svg>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    
+                    <div class="flex items-center space-x-3">
+                        <img src="/resources/placeholder-avatar.png" alt="Teacher" class="w-8 h-8 rounded-full">
+                        <div class="hidden md:block">
+                            <div class="text-sm font-semibold text-navy dark:text-gray-100">Teacher Name</div>
+                            <div class="text-xs text-charcoal dark:text-gray-400">Senior Faculty</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Content Area -->
+        <div class="p-6">
+            <!-- Dashboard Section -->
+            <div id="dashboard-section" class="section-content">
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="content-card p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-charcoal dark:text-gray-400">Total Students</p>
+                                <p class="text-2xl font-bold text-navy dark:text-gray-100">147</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600 dark:text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-charcoal dark:text-gray-400">Materials Uploaded</p>
+                                <p class="text-2xl font-bold text-navy dark:text-gray-100">89</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-green-600 dark:text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-charcoal dark:text-gray-400">Avg. Class Score</p>
+                                <p class="text-2xl font-bold text-navy dark:text-gray-100">82%</p>
+                            </div>
+                            <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-charcoal dark:text-gray-400">Pending Reviews</p>
+                                <p class="text-2xl font-bold text-navy dark:text-gray-100">23</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions & Recent Activity -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <div class="content-card p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-lg font-semibold text-navy dark:text-gray-100">Recent Activity</h3>
+                                <button class="text-sm text-navy hover:text-gold transition-colors">View All</button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-slate-700 rounded-lg">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                        📚
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-navy dark:text-gray-100">New Material Uploaded</h4>
+                                        <p class="text-sm text-charcoal dark:text-gray-400">Accountancy - Final Accounts (Chapter 12)</p>
+                                        <div class="text-xs text-charcoal dark:text-gray-400 mt-1">2 hours ago • 24 students viewed</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-slate-700 rounded-lg">
+                                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                                        📝
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-navy dark:text-gray-100">Assignment Submitted</h4>
+                                        <p class="text-sm text-charcoal dark:text-gray-400">Economics - National Income (18 submissions)</p>
+                                        <div class="text-xs text-charcoal dark:text-gray-400 mt-1">1 day ago • Due date passed</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-slate-700 rounded-lg">
+                                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                        📊
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-navy dark:text-gray-100">Test Results Published</h4>
+                                        <p class="text-sm text-charcoal dark:text-gray-400">Business Studies - Marketing Management</p>
+                                        <div class="text-xs text-charcoal dark:text-gray-400 mt-1">3 days ago • Average: 78%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="content-card p-6">
+                            <h3 class="text-lg font-semibold text-navy dark:text-gray-100 mb-4">Quick Actions</h3>
+                            <div class="space-y-3">
+                                <button id="uploadMaterialBtn" class="w-full text-left p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                            ⬆️
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-navy dark:text-gray-100">Upload Material</div>
+                                            <div class="text-sm text-charcoal dark:text-gray-400">Add new study resource</div>
+                                        </div>
+                                    </div>
+                                </button>
+                                
+                                <button id="createTestBtn" class="w-full text-left p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                                            📝
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-navy dark:text-gray-100">Create Test</div>
+                                            <div class="text-sm text-charcoal dark:text-gray-400">Design new assessment</div>
+                                        </div>
+                                    </div>
+                                </button>
+                                
+                                <button class="w-full text-left p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors border border-gray-200 dark:border-gray-600">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                            📊
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-navy dark:text-gray-100">View Analytics</div>
+                                            <div class="text-sm text-charcoal dark:text-gray-400">Student performance</div>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="content-card p-6">
+                            <h3 class="text-lg font-semibold text-navy dark:text-gray-100 mb-4">Top Performers</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-gold rounded-full flex items-center justify-center text-navy font-bold text-sm">1</div>
+                                    <div class="flex-1">
+                                        <div class="font-medium text-navy dark:text-gray-100">Priya Sharma</div>
+                                        <div class="text-sm text-charcoal dark:text-gray-400">Class XII A</div>
+                                    </div>
+                                    <div class="text-sm font-semibold text-navy dark:text-gray-100">94%</div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+                                    <div class="flex-1">
+                                        <div class="font-medium text-navy dark:text-gray-100">Rohan Patel</div>
+                                        <div class="text-sm text-charcoal dark:text-gray-400">Class XII B</div>
+                                    </div>
+                                    <div class="text-sm font-semibold text-navy dark:text-gray-100">91%</div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+                                    <div class="flex-1">
+                                        <div class="font-medium text-navy dark:text-gray-100">Anita Desai</div>
+                                        <div class="text-sm text-charcoal dark:text-gray-400">Class XII A</div>
+                                    </div>
+                                    <div class="text-sm font-semibold text-navy dark:text-gray-100">89%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Upload Materials Section -->
+            <div id="materials-section" class="section-content hidden">
+                <div class="content-card p-6">
+                    <h3 class="text-xl font-semibold text-navy dark:text-gray-100 mb-6">Upload Study Materials</h3>
+                    
+                    <div class="upload-area p-8 rounded-xl text-center mb-6">
+                        <svg class="w-12 h-12 mx-auto mb-4 text-navy dark:text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <h4 class="text-lg font-semibold text-navy dark:text-gray-100 mb-2">Drop files here or click to upload</h4>
+                        <p class="text-sm text-charcoal dark:text-gray-400 mb-4">Support for PDF, DOC, PPT, MP4 files up to 50MB</p>
+                        <button class="btn-primary text-white px-6 py-2 rounded-lg">Choose Files</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-navy dark:text-gray-100 mb-2">Title</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700" placeholder="Enter material title">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-navy dark:text-gray-100 mb-2">Subject</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700">
+                                <option>Select Subject</option>
+                                <option>Accountancy</option>
+                                <option>Economics</option>
+                                <option>Business Studies</option>
+                                <option>Mathematics</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-navy dark:text-gray-100 mb-2">Class</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700">
+                                <option>Select Class</option>
+                                <option>Class XI</option>
+                                <option>Class XII</option>
+                                <option>B.Com</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-navy dark:text-gray-100 mb-2">Chapter</label>
+                            <input type="text" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700" placeholder="Chapter number/topic">
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label class="block text-sm font-semibold text-navy dark:text-gray-100 mb-2">Description</label>
+                        <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700" placeholder="Brief description of the material"></textarea>
+                    </div>
+                    
+                    <div class="flex justify-end space-x-4 mt-6">
+                        <button class="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-charcoal dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700">Save as Draft</button>
+                        <button class="btn-primary text-white px-6 py-2 rounded-lg">Publish Material</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Student Progress Section -->
+            <div id="students-section" class="section-content hidden">
+                <div class="content-card p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-navy dark:text-gray-100">Student Progress</h3>
+                        <div class="flex space-x-2">
+                            <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-sm">
+                                <option>All Classes</option>
+                                <option>Class XI A</option>
+                                <option>Class XII B</option>
+                                <option>B.Com</option>
+                            </select>
+                            <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-slate-700 text-sm">
+                                <option>All Subjects</option>
+                                <option>Accountancy</option>
+                                <option>Economics</option>
+                                <option>Business Studies</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <th class="text-left py-3 px-4 font-semibold text-navy dark:text-gray-100">Student Name</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-navy dark:text-gray-100">Class</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-navy dark:text-gray-100">Progress</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-navy dark:text-gray-100">Avg Score</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-navy dark:text-gray-100">Last Active</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-navy dark:text-gray-100">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentTableBody">
+                                <!-- Student rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Other sections will be implemented similarly -->
+            <div id="assignments-section" class="section-content hidden">
+                <div class="content-card p-6">
+                    <h3 class="text-xl font-semibold text-navy dark:text-gray-100 mb-6">Assignment Management</h3>
+                    <p class="text-charcoal dark:text-gray-400">Create, manage, and review student assignments.</p>
+                </div>
+            </div>
+            
+            <div id="tests-section" class="section-content hidden">
+                <div class="content-card p-6">
+                    <h3 class="text-xl font-semibold text-navy dark:text-gray-100 mb-6">Test Creation</h3>
+                    <p class="text-charcoal dark:text-gray-400">Design and publish practice tests and assessments.</p>
+                </div>
+            </div>
+            
+            <div id="analytics-section" class="section-content hidden">
+                <div class="content-card p-6">
+                    <h3 class="text-xl font-semibold text-navy dark:text-gray-100 mb-6">Class Analytics</h3>
+                    <p class="text-charcoal dark:text-gray-400">Detailed analytics and performance insights.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Upload Material Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold text-navy dark:text-gray-100">Upload Study Material</h3>
+                <button id="closeUploadModal" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <p class="text-charcoal dark:text-gray-400">Material upload form will be displayed here.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Theme Toggle
+        const html = document.documentElement;
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.classList.add(currentTheme);
+        
+        // Navigation functionality
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.section-content');
+        const pageTitle = document.getElementById('pageTitle');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        
+        // Section titles mapping
+        const sectionTitles = {
+            'dashboard': 'Teacher Dashboard',
+            'materials': 'Upload Materials',
+            'students': 'Student Progress',
+            'assignments': 'Assignments',
+            'tests': 'Create Tests',
+            'analytics': 'Class Analytics'
+        };
+        
+        // Navigation click handlers
+        navItems.forEach(item => {
+            if (item.dataset.section) {
+                item.addEventListener('click', () => {
+                    const section = item.dataset.section;
+                    showSection(section);
+                    updateActiveNav(item);
+                    closeMobileMenu();
+                });
+            }
+        });
+        
+        function showSection(sectionName) {
+            // Hide all sections
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(`${sectionName}-section`);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                pageTitle.textContent = sectionTitles[sectionName] || 'Teacher Dashboard';
+            }
+        }
+        
+        function updateActiveNav(activeItem) {
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            activeItem.classList.add('active');
+        }
+        
+        // Mobile menu functionality
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        
+        function openMobileMenu() {
+            sidebar.classList.remove('-translate-x-full');
+            mobileMenuOverlay.classList.remove('hidden');
+        }
+        
+        function closeMobileMenu() {
+            sidebar.classList.add('-translate-x-full');
+            mobileMenuOverlay.classList.add('hidden');
+        }
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('userRole');
+            window.location.href = 'login.html';
+        });
+        
+        // Modal functionality
+        const uploadModal = document.getElementById('uploadModal');
+        const uploadMaterialBtn = document.getElementById('uploadMaterialBtn');
+        const closeUploadModal = document.getElementById('closeUploadModal');
+        const createTestBtn = document.getElementById('createTestBtn');
+        
+        uploadMaterialBtn.addEventListener('click', () => {
+            uploadModal.classList.add('active');
+        });
+        
+        closeUploadModal.addEventListener('click', () => {
+            uploadModal.classList.remove('active');
+        });
+        
+        createTestBtn.addEventListener('click', () => {
+            showNotification('Test creation feature coming soon!', 'info');
+        });
+        
+        // Close modal on backdrop click
+        uploadModal.addEventListener('click', (e) => {
+            if (e.target === uploadModal) {
+                uploadModal.classList.remove('active');
+            }
+        });
+        
+        // Demo student data
+        const students = [
+            { name: 'Priya Sharma', class: 'Class XII A', progress: 95, score: 94, lastActive: '2 hours ago' },
+            { name: 'Rohan Patel', class: 'Class XII B', progress: 88, score: 91, lastActive: '1 day ago' },
+            { name: 'Anita Desai', class: 'Class XII A', progress: 92, score: 89, lastActive: '3 hours ago' },
+            { name: 'Vikram Joshi', class: 'Class XII B', progress: 78, score: 85, lastActive: '5 hours ago' },
+            { name: 'Neha Gupta', class: 'Class XII A', progress: 85, score: 88, lastActive: '1 day ago' },
+            { name: 'Rajesh Kumar', class: 'Class XII B', progress: 72, score: 79, lastActive: '2 days ago' }
+        ];
+        
+        // Populate student table
+        function populateStudentTable() {
+            const tbody = document.getElementById('studentTableBody');
+            if (!tbody) return;
+            
+            tbody.innerHTML = students.map(student => `
+                <tr class="student-row border-b border-gray-100 dark:border-gray-700">
+                    <td class="py-3 px-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="/resources/placeholder-avatar.png" alt="${student.name}" class="w-8 h-8 rounded-full">
+                            <span class="font-medium text-navy dark:text-gray-100">${student.name}</span>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4 text-charcoal dark:text-gray-400">${student.class}</td>
+                    <td class="py-3 px-4">
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-navy to-gold h-2 rounded-full" style="width: ${student.progress}%"></div>
+                        </div>
+                        <span class="text-xs text-charcoal dark:text-gray-400 mt-1">${student.progress}%</span>
+                    </td>
+                    <td class="py-3 px-4 font-semibold text-navy dark:text-gray-100">${student.score}%</td>
+                    <td class="py-3 px-4 text-sm text-charcoal dark:text-gray-400">${student.lastActive}</td>
+                    <td class="py-3 px-4">
+                        <button class="text-navy hover:text-gold text-sm font-medium">View Details</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in
+            const userRole = localStorage.getItem('userRole');
+            if (!userRole || userRole !== 'teacher') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Animate cards on load
+            anime({
+                targets: '.content-card',
+                translateY: [20, 0],
+                opacity: [0, 1],
+                duration: 600,
+                easing: 'easeOutCubic',
+                delay: anime.stagger(100)
+            });
+            
+            // Initialize student table when section is clicked
+            document.querySelector('[data-section="students"]').addEventListener('click', () => {
+                setTimeout(populateStudentTable, 100);
+            });
+        });
+        
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-4 px-4 py-2 rounded-lg text-white text-sm font-medium z-50 transform translate-x-full transition-transform duration-300`;
+            
+            switch(type) {
+                case 'success':
+                    notification.classList.add('bg-green-500');
+                    break;
+                case 'error':
+                    notification.classList.add('bg-red-500');
+                    break;
+                case 'info':
+                default:
+                    notification.classList.add('bg-blue-500');
+                    break;
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -20,24 +20,26 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'navy': '#1a237e',
-                        'gold': '#ffb300',
-                        'soft-blue': '#e3f2fd',
-                        'charcoal': '#37474f'
-                    },
-                    fontFamily: {
-                        'display': ['Playfair Display', 'serif'],
-                        'body': ['Inter', 'sans-serif'],
-                        'mono': ['Source Code Pro', 'monospace']
-                    }
-                }
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'navy': '#1a237e',
+              'gold': '#ffb300',
+              'soft-blue': '#e3f2fd',
+              'charcoal': '#37474f'
+            },
+            fontFamily: {
+              'display': ['Playfair Display', 'serif'],
+              'body': ['Inter', 'sans-serif'],
+              'mono': ['Source Code Pro', 'monospace']
             }
+          }
         }
+      }
     </script>
+
     
     <style>
 ::-webkit-scrollbar {
@@ -269,9 +271,64 @@
             opacity: 1;
             pointer-events: auto;
         }
+        .navbar {
+          background: #ffffff;
+          transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .navbar.sticky {
+          background: #ffffff;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .dark .navbar {
+          background: #0f172a;
+        }
+
+        .dark .navbar.sticky {
+          background: #0f172a;
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .dark .navbar .nav-link {
+          color: #e5e7eb;
+        }
+
+        .dark .navbar .nav-link:hover {
+          color: #ffb300;
+        }
+.dark .expandable-card {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dark .expandable-card.expanded {
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+}
+.dark .faculty-card {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.dark .faculty-card:hover {
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+}
+.dark .filter-btn {
+  background: #0f172a;
+  border-color: #334155;
+  color: #e5e7eb;
+}
+
+.dark .filter-btn:hover,
+.dark .filter-btn.active {
+  background: #ffb300;
+  color: #1a237e;
+  border-color: #ffb300;
+}
+
     </style>
 </head>
-<body class="font-body text-charcoal bg-white">
+<body class="font-body text-charcoal bg-white dark:bg-slate-900 dark:text-gray-200">
     <!-- Navigation -->
     <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -296,6 +353,18 @@
                         <a href="results.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Results</a>
                         <a href="gallery.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
                         <a href="contact.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                        <a href="portal/login.html" class="nav-link text-white bg-navy hover:bg-gold px-4 py-2 rounded-lg transition-colors duration-300 font-medium">Student Portal</a>
+                        <button
+                          id="themeToggle"
+                          aria-label="Toggle theme"
+                          class="ml-4 text-xl p-2 rounded-full
+                                 bg-soft-blue text-navy
+                                 hover:scale-110 hover:rotate-12
+                                 dark:bg-slate-800 dark:text-gold
+                                 transition-all duration-300 shadow-md">
+                          🌙
+                        </button>
+
                     </div>
                 </div>
                 
@@ -311,7 +380,11 @@
         </div>
         
         <!-- Mobile Navigation -->
-        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0
+            bg-white dark:bg-slate-900
+            border-t border-gray-200 dark:border-slate-700
+            transition-transform duration-300">
+
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Home</a>
                 <a href="about.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">About Us</a>
@@ -319,6 +392,17 @@
                 <a href="results.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Results</a>
                 <a href="gallery.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Gallery</a>
                 <a href="contact.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Contact</a>
+                <a href="portal/login.html" class="nav-link block px-3 py-2 text-white bg-navy rounded-lg">Student Portal</a>
+                <button
+                          id="themeToggle"
+                          aria-label="Toggle theme"
+                          class="ml-4 text-xl p-2 rounded-full
+                                 bg-soft-blue text-navy
+                                 hover:scale-110 hover:rotate-12
+                                 dark:bg-slate-800 dark:text-gold
+                                 transition-all duration-300 shadow-md">
+                          🌙
+                </button>
             </div>
         </div>
     </nav>
@@ -332,10 +416,12 @@
         </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-navy dark:text-gray-100">
+
                 Meet Our <span class="gradient-text">Expert Team</span>
             </h1>
-            <p class="text-xl md:text-2xl text-charcoal max-w-4xl mx-auto leading-relaxed">
+            <p class="text-xl md:text-2xl text-charcoal dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+
                 Dedicated educators and industry professionals committed to transforming 
                 commerce education through expertise, innovation, and student-centric learning.
             </p>
@@ -362,12 +448,12 @@
                         <div class="text-center mb-6">
                             <img src="resources/swapnil.jpg" alt="Swapnil Shah" 
                                  class="w-32 h-32 rounded-full mx-auto object-cover shadow-lg mb-4">
-                            <h3 class="text-2xl font-display font-bold text-navy">Swapnil Shah</h3>
+                           <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100">Swapnil Shah</h3>
                             <p class="text-gold font-semibold">Director & Founder</p>
                         </div>
                         
                         <div class="text-center mb-6">
-                            <p class="text-charcoal leading-relaxed">
+                            <p class="text-charcoal dark:text-gray-300 leading-relaxed">
                                 Founder of SSIC and a seasoned commerce educator with over <strong>25 years of teaching experience</strong>,
     specializing in Accounting, Cost Accounting, Finance, Management Accounting, and Taxation.
                             </p>
@@ -379,24 +465,24 @@
                     </div>
                     
                     <div class="expanded-content px-8 pb-8">
-                        <div class="border-t border-gray-200 pt-6">
-                            <h4 class="text-lg font-semibold text-navy mb-4">Education & Expertise</h4>
-                            <ul class="text-charcoal space-y-2 mb-6">
+                        <div class="border-t border-gray-200 dark:border-slate-600 pt-6">
+                            <h4 class="text-lg font-semibold text-navy dark:text-gray-100 mb-4">Education & Expertise</h4>
+                            <ul class="text-charcoal dark:text-gray-300 space-y-2 mb-6">
                                 <li>• Specialization in Accounting, Cost Accounting, and Taxation</li>
                                 <li>• Expertise in Finance and Management Accounting</li>
                                 <li>• Extensive teaching experience across HSC, B.Com., CA, and CS</li>
                             </ul>
                             
-                            <h4 class="text-lg font-semibold text-navy mb-4">Professional Experience</h4>
-                            <ul class="text-charcoal space-y-2 mb-6">
+                            <h4 class="text-lg font-semibold text-navy dark:text-gray-100 mb-4">Professional Experience</h4>
+                            <ul class="text-charcoal dark:text-gray-300 space-y-2 mb-6">
                                 <li>• Founder of SSIC (Shreeji Swapn Institute of Commerce)</li>
     <li>• Over 25 years of experience in commerce education</li>
     <li>• Mentor to more than 7,000 students</li>
     <li>• Builder of a faculty team comprising CAs, CMAs, and PhDs</li>
                             </ul>
                             
-                            <h4 class="text-lg font-semibold text-navy mb-4">Leadership & Vision</h4>
-                            <p class="text-charcoal leading-relaxed">
+                            <h4 class="text-lg font-semibold text-navy dark:text-gray-100 mb-4">Leadership & Vision</h4>
+                            <p class="text-charcoal dark:text-gray-300 leading-relaxed">
                                 Swapnil Shah is a passionate educational entrepreneur whose journey reflects a deep
                                 commitment to quality education, disciplined learning, and student success.
                                 His leadership has created a rigorous yet supportive academic environment where
@@ -413,12 +499,12 @@
                         <div class="text-center mb-6">
                             <img src="resources/pratik.jpg" alt="Pratik Desai" 
                                  class="w-32 h-32 rounded-full mx-auto object-cover shadow-lg mb-4">
-                            <h3 class="text-2xl font-display font-bold text-navy">Pratik Desai</h3>
+                           <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100">Pratik Desai</h3>
                             <p class="text-gold font-semibold">Director & Founder</p>
                         </div>
                         
                         <div class="text-center mb-6">
-                            <p class="text-charcoal leading-relaxed">
+                            <p class="text-charcoal dark:text-gray-300 leading-relaxed">
                                 A seasoned educator with over <strong>20 years of experience</strong> specializing in
     Accountancy, Finance, and Business Studies, known for academic leadership and
     application-driven teaching.
@@ -431,24 +517,24 @@
                     </div>
                     
                     <div class="expanded-content px-8 pb-8">
-                        <div class="border-t border-gray-200 pt-6">
-                            <h4 class="text-lg font-semibold text-navy mb-4">Education & Qualifications</h4>
-                            <ul class="text-charcoal space-y-2 mb-6">
+                        <div class="border-t border-gray-200 dark:border-slate-600 pt-6">
+                            <h4 class="text-lg font-semibold text-navy dark:text-gray-100 mb-4">Education & Qualifications</h4>
+                            <ul class="text-charcoal dark:text-gray-300 space-y-2 mb-6">
                                 <li>• Post Graduate Degree in Accountancy, Auditing & Financial Management</li>
     <li>• Diploma in Taxation (4th Rank – M.S. University, Vadodara)</li>
     <li>• Strong academic foundation in financial and management disciplines</li>
                             </ul>
                             
-                            <h4 class="text-lg font-semibold text-navy mb-4">Professional Experience</h4>
-                            <ul class="text-charcoal space-y-2 mb-6">
+                            <h4 class="text-lg font-semibold text-navy dark:text-gray-100 mb-4">Professional Experience</h4>
+                            <ul class="text-charcoal dark:text-gray-300 space-y-2 mb-6">
                                 <li>• 20+ years of experience in higher secondary and commerce education</li>
     <li>• Post Graduate Teacher (PGT) and Higher Secondary Coordinator</li>
     <li>• Head of Examination Department</li>
     <li>• Key roles at Urmi School & Hostel, Vatsalya International School, and Shreyas Vidyalaya</li>
                             </ul>
                             
-                            <h4 class="text-lg font-semibold text-navy mb-4">Academic Contributions & Recognition</h4>
-                            <p class="text-charcoal leading-relaxed">
+                            <h4 class="text-lg font-semibold text-navy dark:text-gray-100 mb-4">Academic Contributions & Recognition</h4>
+                            <p class="text-charcoal dark:text-gray-300 leading-relaxed">
                                 Pratik Desai has played a significant role in curriculum development, academic planning,
     and examination management. His dedication to educational excellence has been
     recognized with appreciation certificates from the Ministry of Education for two
@@ -461,15 +547,14 @@
         </div>
     </section>
 
-<!-- Faculty Section --> 
  <!-- Faculty Section -->
-    <section class="section py-20 bg-gray-50">
+    <section class="section py-20 bg-gray-50 dark:bg-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                <h2 class="text-4xl md:text-5xl font-display font-bold text-navy dark:text-gray-100 mb-6">
                     Our <span class="text-gold">Expert Faculty</span>
                 </h2>
-                <p class="text-xl text-charcoal max-w-3xl mx-auto mb-8">
+                <p class="text-xl text-charcoal dark:text-gray-300 max-w-3xl mx-auto mb-8">
                     A team of dedicated educators with diverse expertise in commerce, 
                     accounting, economics, and business studies.
                 </p>
@@ -491,7 +576,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/sweta-shah.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Sweta Shah</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Sweta Shah</h3>
                 <p class="text-gold font-semibold text-sm">C.A. Inter, M.Com.<br>Dip. in Taxation Practice</p>
                 
             </div>
@@ -502,7 +587,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/Deepa-mane.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Deepa Mane</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Deepa Mane</h3>
                 <p class="text-gold font-semibold text-sm">M.Sc. (Applied Mathematics), B.Ed.</p>
             </div>
             
@@ -513,7 +598,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/pooja-maroo.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Pooja Maroo</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Pooja Maroo</h3>
                 <p class="text-gold font-semibold text-sm">PGDCABM, JCP</p>
             </div>
         </div>
@@ -523,7 +608,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/lovely.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Lovely Kandpal</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Lovely Kandpal</h3>
                 <p class="text-gold font-semibold text-sm">M.Com.</p>
             </div>
         </div>
@@ -533,7 +618,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/chandni-lalwani.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Chandni Lalwani</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Chandni Lalwani</h3>
                 <p class="text-gold font-semibold text-sm">M.Com. (BADM, ABST)<br>M.A., B.Ed. (Economics)</p>
             </div>
         </div>
@@ -543,7 +628,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/maitry-acharya.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Maitry Acharya</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Maitry Acharya</h3>
                 <p class="text-gold font-semibold text-sm">M.A. (English Literature)</p>
             </div>
         </div>
@@ -553,7 +638,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/vinod-padaria.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Dr. Vinod K. Padaria</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Dr. Vinod K. Padaria</h3>
                 <p class="text-gold font-semibold text-sm">M.A., Ph.D. (Economics)<br>M.Com. (Business Economics)</p>
             </div>
         </div>
@@ -563,7 +648,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/Ronak-shah.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Ronak Shah</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Ronak Shah</h3>
                 <p class="text-gold font-semibold text-sm">M.Sc. (Maths), B.Ed.</p>
             </div>
         </div>
@@ -573,7 +658,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/sonali.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Sonali Nandedkar</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Sonali Nandedkar</h3>
                 <p class="text-gold font-semibold text-sm">MBA (HR), M.Com.<br>PGD HRD, B.Ed. (Gold Medal)</p>
             </div>
         </div>
@@ -583,7 +668,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/Harnish-Mahera.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Harnish Mahera</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Harnish Mahera</h3>
                 <p class="text-gold font-semibold text-sm">M.Com., B.Ed., M.Phil.</p>
             </div>
         </div>
@@ -593,7 +678,7 @@
         <div class="p-6">
             <div class="text-center mb-4">
                 <img src="resources/piyush-rohit.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-                <h3 class="text-xl font-display font-bold text-navy">Piyush Rohit</h3>
+                <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Piyush Rohit</h3>
                 <p class="text-gold font-semibold text-sm">MCA, B.Ed.</p>
             </div>
         </div>
@@ -604,7 +689,7 @@
     <div class="faculty-card filterable-item stagger-item" data-category="visiting">
         <div class="p-6 text-center">
             <img src="resources/brijesh.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-            <h3 class="text-xl font-display font-bold text-navy">CA Brijesh Gandhi</h3>
+            <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">CA Brijesh Gandhi</h3>
             <p class="text-gold font-semibold text-sm">Expert Visiting Faculty</p>
         </div>
     </div>
@@ -612,7 +697,7 @@
     <div class="faculty-card filterable-item stagger-item" data-category="visiting">
         <div class="p-6 text-center">
             <img src="resources/Kashyap-Modi.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-            <h3 class="text-xl font-display font-bold text-navy">CA Kashyap Modi</h3>
+            <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">CA Kashyap Modi</h3>
             <p class="text-gold font-semibold text-sm">Expert Visiting Faculty</p>
         </div>
     </div>
@@ -620,7 +705,7 @@
     <div class="faculty-card filterable-item stagger-item" data-category="visiting">
         <div class="p-6 text-center">
             <img src="resources/Tridal-Upadhyay.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-            <h3 class="text-xl font-display font-bold text-navy">Tridal Upadhyay</h3>
+            <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Tridal Upadhyay</h3>
             <p class="text-gold font-semibold text-sm">MBA (Gold Medalist – IIM), IMS</p>
         </div>
     </div>
@@ -628,7 +713,7 @@
     <div class="faculty-card filterable-item stagger-item" data-category="visiting">
         <div class="p-6 text-center">
             <img src="resources/parth-shah.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-            <h3 class="text-xl font-display font-bold text-navy">CA Parth Shah</h3>
+            <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">CA Parth Shah</h3>
             <p class="text-gold font-semibold text-sm">Expert Visiting Faculty</p>
         </div>
     </div>
@@ -636,7 +721,7 @@
     <div class="faculty-card filterable-item stagger-item" data-category="visiting">
         <div class="p-6 text-center">
             <img src="resources/Bijal-shah.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-            <h3 class="text-xl font-display font-bold text-navy">Bijal Shah</h3>
+            <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Bijal Shah</h3>
             <p class="text-gold font-semibold text-sm">B.Com. (Hons.), TTC</p>
         </div>
     </div>
@@ -646,7 +731,7 @@
     <div class="faculty-card filterable-item stagger-item" data-category="admin">
         <div class="p-6 text-center">
             <img src="resources/mittal-darji.png" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-            <h3 class="text-xl font-display font-bold text-navy">Mittal Darji</h3>
+            <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Mittal Darji</h3>
             <p class="text-gold font-semibold text-sm">Admin</p>
         </div>
     </div>
@@ -654,7 +739,7 @@
     <div class="faculty-card filterable-item stagger-item" data-category="admin">
         <div class="p-6 text-center">
             <img src="resources/hetavi-sanghvi.jpg" class="w-24 h-24 rounded-full mx-auto object-cover shadow-md mb-4">
-            <h3 class="text-xl font-display font-bold text-navy">Hetavi Sanghvi</h3>
+            <h3 class="text-xl font-display font-bold text-navy dark:text-gray-100">Hetavi Sanghvi</h3>
             <p class="text-gold font-semibold text-sm">Admin</p>
         </div>
     </div>
@@ -667,33 +752,48 @@
 
     <!-- Inspirational Quote Section -->
     <section class="quote-section py-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="relative z-10">
-                <blockquote class="text-3xl md:text-4xl font-display font-bold mb-8 leading-relaxed">
-                    "The only true teacher is he, who can come down to the 
-level of the student, and transfer his soul to the 
-student’s soul and see through the student’s eyes and 
-hear through his ears and understand through his mind."
-                </blockquote>
-                <cite class="text-xl text-gold font-semibold">— Swami Vivekananda</cite>
-                
-                <div class="mt-12 grid md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-gold font-mono mb-2">50+</div>
-                        <div class="text-sm text-gray-300">Years Combined Experience</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-gold font-mono mb-2">11000+</div>
-                        <div class="text-sm text-gray-300">Students Mentored</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-gold font-mono mb-2">99%</div>
-                        <div class="text-sm text-gray-300">Success Rate</div>
-                    </div>
-                </div>
-            </div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="relative z-10">
+
+      <!-- Swami Vivekananda Portrait -->
+      <div class="mb-8 flex justify-center">
+        <img
+          src="resources/swami-vivekananda.png"
+          alt="Swami Vivekananda"
+          class="w-40 h-40 rounded-full object-cover
+                 border-4 border-gold shadow-xl
+                 opacity-90">
+      </div>
+
+      <blockquote class="text-3xl md:text-4xl font-display font-bold mb-8 leading-relaxed">
+        "The only true teacher is he, who can come down to the 
+        level of the student, and transfer his soul to the 
+        student’s soul and see through the student’s eyes and 
+        hear through his ears and understand through his mind."
+      </blockquote>
+
+      <cite class="text-xl text-gold font-semibold">
+        — Swami Vivekananda
+      </cite>
+
+      <div class="mt-12 grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-gold font-mono mb-2">50+</div>
+          <div class="text-sm text-gray-200">Years Combined Experience</div>
         </div>
-    </section>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-gold font-mono mb-2">11000+</div>
+          <div class="text-sm text-gray-200">Students Mentored</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-gold font-mono mb-2">99%</div>
+          <div class="text-sm text-gray-200">Success Rate</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
     <!-- Footer -->
     <!-- Footer – NEW (for team.html) -->

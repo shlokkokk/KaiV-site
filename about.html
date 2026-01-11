@@ -20,24 +20,26 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'navy': '#1a237e',
-                        'gold': '#ffb300',
-                        'soft-blue': '#e3f2fd',
-                        'charcoal': '#37474f'
-                    },
-                    fontFamily: {
-                        'display': ['Playfair Display', 'serif'],
-                        'body': ['Inter', 'sans-serif'],
-                        'mono': ['Source Code Pro', 'monospace']
-                    }
-                }
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'navy': '#1a237e',
+              'gold': '#ffb300',
+              'soft-blue': '#e3f2fd',
+              'charcoal': '#37474f'
+            },
+            fontFamily: {
+              'display': ['Playfair Display', 'serif'],
+              'body': ['Inter', 'sans-serif'],
+              'mono': ['Source Code Pro', 'monospace']
             }
+          }
         }
+      }
     </script>
+
     
     <style>
         /* Custom Styles */
@@ -112,13 +114,21 @@
         }
         
         .timeline-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            width: 45%;
-        }
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  width: 45%;              /* 🔥 REQUIRED */
+  position: relative;      /* 🔥 REQUIRED */
+}
+
+
+.dark .timeline-content {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
         
         .timeline-item:nth-child(even) .timeline-content {
             margin-left: auto;
@@ -265,6 +275,45 @@
             opacity: 1;
             pointer-events: auto;
         }
+.navbar {
+  background: #ffffff;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.sticky {
+  background: #ffffff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.dark .navbar {
+  background: #0f172a;
+}
+
+.dark .navbar.sticky {
+  background: #0f172a;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.dark .navbar .nav-link {
+  color: #e5e7eb;
+}
+
+.dark .navbar .nav-link:hover {
+  color: #ffb300;
+}
+.dark .philosophy-step {
+  background: #0f172a;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .philosophy-step h3 {
+  color: #f9fafb;
+}
+
+.dark .philosophy-step p {
+  color: #cbd5f5;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -284,7 +333,7 @@
 }
     </style>
 </head>
-<body class="font-body text-charcoal bg-white">
+<body class="font-body text-charcoal bg-white dark:bg-slate-900 dark:text-gray-200">
     <!-- Navigation -->
     <nav class="navbar fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -309,6 +358,18 @@
                         <a href="results.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Results</a>
                         <a href="gallery.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Gallery</a>
                         <a href="contact.html" class="nav-link text-charcoal hover:text-gold transition-colors duration-300 font-medium">Contact</a>
+                        <a href="portal/login.html" class="nav-link text-white bg-navy hover:bg-gold px-4 py-2 rounded-lg transition-colors duration-300 font-medium">Student Portal</a>
+                        <button
+                          id="themeToggle"
+                          aria-label="Toggle theme"
+                          class="ml-4 text-xl p-2 rounded-full
+                                 bg-soft-blue text-navy
+                                 hover:scale-110 hover:rotate-12
+                                 dark:bg-slate-800 dark:text-gold
+                                 transition-all duration-300 shadow-md">
+                          🌙
+                        </button>
+
                     </div>
                 </div>
                 
@@ -324,7 +385,10 @@
         </div>
         
         <!-- Mobile Navigation -->
-        <div class="nav-menu md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 transition-transform duration-300">
+        <div class="nav-menu md:hidden fixed top-16 left-0 right-0
+             bg-white dark:bg-slate-900
+             border-t border-gray-200 dark:border-slate-700
+             transition-transform duration-300">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="index.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Home</a>
                 <a href="about.html" class="nav-link block px-3 py-2 text-navy font-medium">About Us</a>
@@ -332,6 +396,18 @@
                 <a href="results.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Results</a>
                 <a href="gallery.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Gallery</a>
                 <a href="contact.html" class="nav-link block px-3 py-2 text-charcoal hover:text-gold">Contact</a>
+                <a href="portal/login.html" class="nav-link block px-3 py-2 text-white bg-navy rounded-lg">Student Portal</a>
+                <button
+                  id="themeToggle"
+                  aria-label="Toggle theme"
+                  class="ml-4 text-xl p-2 rounded-full
+                         bg-soft-blue text-navy
+                         hover:scale-110 hover:rotate-12
+                         dark:bg-slate-800 dark:text-gold
+                         transition-all duration-300 shadow-md">
+                  🌙
+                </button>
+
             </div>
         </div>
     </nav>
@@ -345,10 +421,12 @@
         </div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+            <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-navy dark:text-gray-100">
+
                 Our <span class="gradient-text">Inception</span>
             </h1>
-            <p class="text-xl md:text-2xl text-charcoal max-w-4xl mx-auto leading-relaxed">
+            <p class="text-xl md:text-2xl text-charcoal dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
+
                 The journey of KAI-VIDHYA began with a vision to transform commerce education 
                 through excellence, innovation, and student-centric learning.
             </p>
@@ -356,7 +434,8 @@
     </section>
 
     <!-- Origin Story Timeline -->
-<section class="section py-20">
+<section class="section py-20 dark:bg-slate-900">
+
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
             <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
@@ -374,15 +453,15 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <div class="text-gold font-bold text-sm mb-2">1999</div>
-                    <h3 class="text-2xl font-display font-bold text-navy mb-4">
+                    <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-4">
                         Foundation of SSIC
                     </h3>
-                    <p class="text-charcoal mb-4">
+                    <p class="text-charcoal dark:text-gray-300 mb-4">
                         SSIC (Shreeji Swapn Institute of Commerce) was established by Swapnil Shah with
                         a strong belief that conceptual clarity is the backbone of commerce education.
                         The institute focused on building deep understanding rather than rote learning.
                     </p>
-                    <div class="text-sm text-gray-600">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
                         <strong>Core Philosophy:</strong> Conceptual strength, academic discipline, student mentorship
                     </div>
                 </div>
@@ -392,15 +471,15 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <div class="text-gold font-bold text-sm mb-2">2000s</div>
-                    <h3 class="text-2xl font-display font-bold text-navy mb-4">
+                    <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-4">
                         Growth of Concept-Driven Teaching
                     </h3>
-                    <p class="text-charcoal mb-4">
+                    <p class="text-charcoal dark:text-gray-300 mb-4">
                         Pratik Desai, PGT and Coordinator at Urmi School, successfully ran concept-based
                         commerce programs for several years. His teaching emphasized application,
                         analytical thinking, and holistic student development.
                     </p>
-                    <div class="text-sm text-gray-600">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
                         <strong>Core Philosophy:</strong> Application-based learning, innovation, holistic growth
                     </div>
                 </div>
@@ -410,15 +489,15 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <div class="text-gold font-bold text-sm mb-2">2021</div>
-                    <h3 class="text-2xl font-display font-bold text-navy mb-4">
+                    <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-4">
                         A Shared Vision
                     </h3>
-                    <p class="text-charcoal mb-4">
+                    <p class="text-charcoal dark:text-gray-300 mb-4">
                         With a common mission to elevate the standards of professional commerce coaching,
                         Swapnil Shah and Pratik Desai united to combine their expertise, experience,
                         and educational philosophies.
                     </p>
-                    <div class="text-sm text-gray-600">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
                         <strong>Core Focus:</strong> Integration of knowledge, shared academic vision, student success
                     </div>
                 </div>
@@ -428,15 +507,15 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <div class="text-gold font-bold text-sm mb-2">2024</div>
-                    <h3 class="text-2xl font-display font-bold text-navy mb-4">
+                    <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-4">
                         Birth of KAI-V
                     </h3>
-                    <p class="text-charcoal mb-4">
+                    <p class="text-charcoal dark:text-gray-300 mb-4">
                         KAI-V (Knowledge, Application, Integration – Vocational) was officially launched
                         as a premier commerce education institute in Vadodara, offering integrated coaching
                         for XI & XII Commerce, B.Com., and CA / CMA under one roof.
                     </p>
-                    <div class="text-sm text-gray-600">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
                         <strong>Core Strength:</strong> Seamless academic journey, professional readiness, continuity
                     </div>
                 </div>
@@ -446,15 +525,15 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <div class="text-gold font-bold text-sm mb-2">Identity & Philosophy</div>
-                    <h3 class="text-2xl font-display font-bold text-navy mb-4">
+                    <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-4">
                         Ocean of Knowledge
                     </h3>
-                    <p class="text-charcoal mb-4">
+                    <p class="text-charcoal dark:text-gray-300 mb-4">
                         The name KAI-V represents depth, strength, restoration, and wisdom across cultures.
                         Combined with “Vidhya”, meaning knowledge, KAI-V symbolizes an ocean of knowledge
                         that nurtures, empowers, and prepares commerce professionals for the future.
                     </p>
-                    <div class="text-sm text-gray-600">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
                         <strong>Belief:</strong> “Conceptual strength is the foundation of professional success”
                     </div>
                 </div>
@@ -463,16 +542,16 @@
 <div class="timeline-item">
     <div class="timeline-content">
         <div class="text-gold font-bold text-sm mb-2">Present</div>
-        <h3 class="text-2xl font-display font-bold text-navy mb-4">
+        <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-4">
             KAI-Vidhya Services Pvt. Ltd.
         </h3>
-        <p class="text-charcoal mb-4">
+        <p class="text-charcoal dark:text-gray-300 mb-4">
             Today, KAI-V operates as a unified and professionally managed commerce education institute
             in Vadodara, offering structured and integrated coaching for XI & XII Commerce, B.Com.,
             and CA / CMA. The institute functions with a clear academic framework, experienced faculty,
             and a student-first approach.
         </p>
-        <div class="text-sm text-gray-600">
+        <div class="text-sm text-gray-600 dark:text-gray-400">
             <strong>Current Identity:</strong> Integrated institute, academic ecosystem, professional mentorship
         </div>
     </div>
@@ -485,16 +564,16 @@
 
 
     <!-- Philosophy Section -->
-    <section class="section py-20 bg-gray-50">
+    <section class="section py-20 bg-gray-50 dark:bg-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
                     Our <span class="text-gold">Philosophy</span>
                 </h2>
-                <p class="text-xl text-charcoal max-w-3xl mx-auto mb-8">
+                <p class="text-xl text-charcoal dark:text-gray-300 max-w-3xl mx-auto mb-8">
                     "Knowledge → Application → Integration → Vocational Excellence"
                 </p>
-                <p class="text-lg text-charcoal max-w-4xl mx-auto">
+                <p class="text-lg text-charcoal dark:text-gray-300 max-w-4xl mx-auto">
                     At KAI-V, education is rooted in deep conceptual understanding, logical thinking,
     and continuous application. We believe true learning is not memorization, but the
     ability to understand, apply, and integrate knowledge across academic and
@@ -560,26 +639,27 @@ professional orientation, exam readiness, and skill development.
     </section>
 
     <!-- Identity & Meaning Section -->
-    <section class="section py-20">
+    <section class="section py-20 dark:bg-slate-900">
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="stagger-item">
-                    <h2 class="text-4xl md:text-5xl font-display font-bold text-navy mb-6">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-navy dark:text-gray-100 mb-6">
                         The Meaning of <br><span class="text-gold">KAI-VIDHYA</span>
                     </h2>
                     <div class="space-y-6">
 
     <!-- KAI -->
     <div>
-        <h3 class="text-2xl font-display font-bold text-navy mb-3">KAI</h3>
-        <p class="text-charcoal leading-relaxed">
+        <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-3">KAI</h3>
+        <p class="text-charcoal dark:text-gray-300 leading-relaxed">
             The word <strong>“Kai”</strong> holds deep traditional and cultural significance across
             multiple languages and regions. It symbolizes nourishment, strength, protection,
             restoration, and new beginnings — the essential elements required for growth,
             stability, and resilience.
         </p>
 
-        <ul class="list-disc list-inside mt-4 space-y-1 text-charcoal">
+        <ul class="list-disc list-inside mt-4 space-y-1 text-charcoal dark:text-gray-300">
             <li><strong>Aramaic:</strong> Ability to stand firm; a strong base</li>
             <li><strong>Basque:</strong> Rooted in happiness and positivity</li>
             <li><strong>Burmese:</strong> Strength and unbreakable nature</li>
@@ -596,8 +676,8 @@ professional orientation, exam readiness, and skill development.
 
     <!-- VIDHYA -->
     <div>
-        <h3 class="text-2xl font-display font-bold text-navy mb-3">VIDHYA</h3>
-        <p class="text-charcoal leading-relaxed">
+        <h3 class="text-2xl font-display font-bold text-navy dark:text-gray-100 mb-3">VIDHYA</h3>
+        <p class="text-charcoal dark:text-gray-300 leading-relaxed">
             <strong>“Vidhya”</strong> is a Sanskrit term meaning knowledge, learning, and wisdom.
             It represents intellectual growth, enlightenment, and the transformative power
             of education. In the Indian academic tradition, Vidhya goes beyond information —
@@ -636,7 +716,7 @@ professional orientation, exam readiness, and skill development.
     
     <!-- Footer -->
     <!-- Footer – NEW (copy this exact block into about.html to replace the old one) -->
-<footer class="bg-navy text-white py-12">
+<footer class="bg-navy dark:bg-slate-950 text-white py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid md:grid-cols-4 gap-8">
 
