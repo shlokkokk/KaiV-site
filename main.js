@@ -521,9 +521,9 @@ function initializeParticles() {
         let pencilImg, rulerImg;
 
         p.preload = function () {
-            logoImg = p.loadImage('/resources/logo.png');
-            pencilImg = p.loadImage('/resources/pencil.png');
-            rulerImg = p.loadImage('/resources/ruler.png');
+            logoImg = p.loadImage('/resources/assets/logo.png');
+            pencilImg = p.loadImage('/resources/assets/pencil.png');
+            rulerImg = p.loadImage('/resources/assets/ruler.png');
         };
         // end 
         p.setup = function() {
